@@ -1,0 +1,16 @@
+body {
+  padding-top:72px;
+	box-sizing:border-box;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top:72px;
+  }
+}
+
+.center {
+  margin:auto;
+}
+
+

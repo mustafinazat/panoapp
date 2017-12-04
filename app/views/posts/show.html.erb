@@ -1,0 +1,236 @@
+        <% set_meta_tags description: 'Member login page.',
+                 keywords: 'Site, Login, Members', reverse: true
+    %>
+
+
+         <% breadcrumb :post, @post %>
+                <div class="row">
+  <div class="col-9 col-sm-10 col-lg-10">
+                    <h3 class="mt-4 mb-3"><%= title @post.title %></h3>
+          
+        </div>
+
+         <div class="col-3 col-sm-2 col-lg-2 d-flex justify-content-around align-items-center align-content-center">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" id="littleplanet"> Label</label>
+                    </div>
+                </div>
+
+
+                <div class="col-md-8 col-lg-9">
+                    <div class="tz-gallery">
+                        <div class="row">
+ <% if (!@post.vk_album_id.empty?)
+   vk = VkontakteApi::Client.new(session[:token]) %>
+  <% unless vk.photos.get(owner_id: @post.vk_owner_id, album_id: @post.vk_album_id).empty? %>
+  <% vk.photos.get(owner_id: @post.vk_owner_id, album_id: @post.vk_album_id).each do |panorama| %>
+
+  <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+    <div class="thumbnail">
+
+
+
+ <img src=" <%= panorama.src %>" srcset=" <%= panorama.src %>" onclick="OpenPanorama(this)" >
+
+
+
+   </div>
+ </div>
+
+
+  <% end %>
+<% end %>
+
+
+
+ <img src=" <%=  %>" >
+
+
+
+
+
+
+
+
+
+
+ <% else %>
+
+
+
+
+
+  <% unless @post.panoramas.empty? %>
+  <% @post.panoramas.each do |panorama| %>
+
+  <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+    <div class="thumbnail">
+
+
+
+ <img src=" <%= panorama.image.url(:thumb) %>" srcset=" <%= panorama.image.url %>" onclick="OpenPanorama(this)" >
+
+
+
+   </div>
+ </div>
+
+
+  <% end %>
+<% end %>
+
+
+
+
+
+
+<% end %>
+
+
+
+
+ 
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                <div class="col-md-4 col-lg-3 d-none d-sm-none d-md-block">
+<p>Автор: <%= link_to @post.user.email, @post.user %> </p>
+<p>
+  <%= @post.description %>
+</p>
+
+
+
+                </div>
+
+</div>
+
+
+
+
+    <div id="panorama-container">
+
+      <!-- Progress bar -->
+      <div id="progress_bar"></div>
+
+      <!-- Close button -->
+      <div class="closepano">
+        <i>&times;</i>
+      </div>
+
+      <!-- Main container -->
+      <div id="main-container">
+        
+      </div>
+    </div>
+
+<%= javascript_include_tag "three.min" %>
+<%= javascript_include_tag "panolens.min"%>
+
+
+    <%= javascript_tag do %>
+
+ var panoramaContainer, mainContainer, closeButton,  viewer, panorama,progressBar, progress;
+      panoramaContainer = document.getElementById( 'panorama-container' );
+      mainContainer = document.getElementById( 'main-container');
+      progressBar = document.getElementById( 'progress_bar' );
+      closeButton = panoramaContainer.querySelector( '.closepano' );
+     
+ function OpenPanorama (img) {
+      
+
+       setupPanolens();
+
+
+           if ($('#littleplanet').is(':checked')) {
+              panorama = new PANOLENS.ImageLittlePlanet( img.srcset );
+          }
+        else 
+            {
+                panorama = new PANOLENS.ImagePanorama( img.srcset );
+             }
+           
+             panorama.addEventListener( 'progress', function ( event ) {
+             progress = event.progress.loaded / event.progress.total * 100;
+             progressBar.style.width = progress + '%';
+             if ( progress === 100 ) {
+             progressBar.style.opacity = 0;
+              }
+
+            } );
+            viewer.add( panorama );
+
+            panoramaContainer.classList.add( 'open' );
+
+          };
+
+       
+     
+
+      function setupPanolens () {
+
+         viewer = new PANOLENS.Viewer( { container: mainContainer } );
+
+      };
+
+      function disposePanorama () {
+
+        panorama.dispose();
+        viewer.remove( panorama );
+        panorama = null;
+
+      };
+
+
+      function disposeViewer () {
+
+            viewer.dispose();
+          mainContainer.innerHTML = '';
+viewer = null;
+
+      };
+
+
+      function init () {
+
+        // Dispose panorama when close
+        closeButton.addEventListener( 'click', function () {
+
+          disposePanorama();
+          disposeViewer();
+          progressBar.style.width = 0;
+          progressBar.style.opacity = 1;
+          panoramaContainer.classList.remove( 'open' );
+
+        }, false );
+
+      }
+
+      init();
+
+
+<% end %>
+
+
+
+
+
+<% if policy(@post).update? %>
+ <%= link_to 'Edit', edit_post_path(@post)  %> |  <%= link_to "Delete", post_path, method: :delete  %> |
+<% end %>
+
+
+
+
+
+<%= link_to 'Back', posts_path %>

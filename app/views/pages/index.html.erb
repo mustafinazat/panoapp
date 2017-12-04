@@ -1,0 +1,43 @@
+<%= @photos.first %>
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+        <h3 class="mt-4 mb-3"><%= @photos.count %></h3></div>
+    <div class="col-md-8 col-lg-9" >
+<table class="table">
+  <% if @photos.empty? %>
+    <tr>
+      <td>Никого не найдено</td>
+    </tr>
+  <% else %>
+    <% @photos.each do |photo| %>
+      <tr>
+        <td>
+          <%= link_to image_tag(photo.src), "http://vk.com/", target: '_blank' %>
+        </td>
+        
+        <td class="wide">
+          <i class="icon-user"></i>
+              <br />
+          
+
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
+
+    </div>
+    </div>
+    <div class="col-md-4 col-lg-3">
+
+
+<!-- Put this script tag to the <head> of your page -->
+
+
+
+    </div>
+</div>
+
+
+
+
