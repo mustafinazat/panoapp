@@ -16,3 +16,36 @@
 //= require popper
 //= require bootstrap
 
+
+
+$(function() {
+
+
+$(function () {
+ 
+  // Search form
+  $('#posts_search input').keyup(function () {
+    $.get($('#posts_search').attr('action'), $('#posts_search').serialize(), null, 'script');
+    return false;
+  });
+});
+
+
+$(document).on('click', '.pagination a', function () {
+     $.getScript(this.href);
+     return false;
+  });
+
+ //  if ($('.pagination').length && $('#posts').length) {
+ //   $(window).scroll(function() {
+ //      const url = $('.pagination .next a').attr('href');
+ //      if (url && ($(window).scrollTop() > ($(document).height() - $(window).height() - 50))) {
+ //        $('.pagination').text('Загрузка статей...');
+ //        return $.getScript(url);
+ //      }
+ //   });
+ //   return $(window).scroll();
+ // }
+});
+
+

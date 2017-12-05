@@ -68,11 +68,8 @@
     <div class="thumbnail">
 
 
-
- <img src=" <%= panorama.image.url(:thumb) %>" srcset=" <%= panorama.image.url %>" onclick="OpenPanorama(this)" >
-
-
-
+<span style="display:none"><%= panorama.image.url %></span>
+ <img src=" <%= panorama.image.url(:thumb) %>" onclick="OpenPanorama(this)" >
    </div>
  </div>
 
@@ -150,14 +147,16 @@
       
 
        setupPanolens();
-
+     //  console.log(img);
+//console.log(img.previousSibling.previousSibling);
+//console.log(img.parentNode.firstChild);
 
            if ($('#littleplanet').is(':checked')) {
-              panorama = new PANOLENS.ImageLittlePlanet( img.srcset );
+              panorama = new PANOLENS.ImageLittlePlanet( img.previousSibling.previousSibling.innerText);
           }
         else 
             {
-                panorama = new PANOLENS.ImagePanorama( img.srcset );
+                panorama = new PANOLENS.ImagePanorama( img.previousSibling.previousSibling.innerText );
              }
            
              panorama.addEventListener( 'progress', function ( event ) {

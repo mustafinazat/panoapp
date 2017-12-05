@@ -41,7 +41,8 @@ gem "paperclip", "~> 5.0.0"
 gem "omniauth-vkontakte"
 gem 'vkontakte_api', '~> 1.4'
 gem 'meta-tags'
-
+gem 'will_paginate', '~> 3.1.0'
+gem 'will_paginate-bootstrap4'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
