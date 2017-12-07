@@ -1,0 +1,129 @@
+         <% breadcrumb :virtualtour, @virtualtour %>
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+        <h3 class="mt-4 mb-3"><%= @virtualtour.title %></h3></div>
+    <div class="col-md-8 col-lg-9" style="height:60vh;" >
+          <div id="virtualtour-container">
+    </div>
+    </div>
+    <div class="col-md-4 col-lg-3">
+<p>Автор: <%= link_to @virtualtour.user.email, @virtualtour.user %> </p>
+<p>
+  <%= @virtualtour.description %>
+</p>
+
+<!-- Put this script tag to the <head> of your page -->
+
+
+
+    </div>
+</div>
+
+
+<%= javascript_include_tag "three.min" %>
+<%= javascript_include_tag "panolens.min"%>
+
+
+        <%= javascript_tag do %>
+
+
+    PANOLENS.Panorama.prototype.link = function ( pano, position, imageScale, imageSrc , text) {
+        var scope = this, spot, scale, img;
+        this.visible = true;
+        if ( !position ) {
+            console.warn( 'Please specify infospot position for linking' );
+            return;
+        }
+
+        // Infospot scale
+        if ( imageScale !== undefined ) {
+
+            scale = imageScale;
+
+        } else if ( pano.linkingImageScale !== undefined ) {
+
+            scale = pano.linkingImageScale;
+
+        } else {
+
+            scale = 300;
+
+        }
+
+
+        // Infospot image
+        if ( imageSrc ) {
+
+            img = imageSrc
+
+        } else if ( pano.linkingImageURL ) {
+
+            img = pano.linkingImageURL;
+
+        } else {
+
+            img = PANOLENS.DataImage.Arrow;
+
+        }
+
+        // Creates a new infospot
+        spot = new PANOLENS.Infospot( scale, img );
+        spot.position.copy( position );
+        spot.addHoverText(text);
+spot.element.locked = true;
+        spot.toPanorama = pano;
+        spot.addEventListener( 'click', function () {
+
+            /**
+             * Viewer handler event
+             * @type {object}
+             * @event PANOLENS.Panorama#panolens-viewer-handler
+             * @property {string} method - Viewer function name
+             * @property {*} data - The argument to be passed into the method
+             */
+            scope.dispatchEvent( { type : 'panolens-viewer-handler', method: 'setPanorama', data: pano } );
+
+        } );
+
+        this.linkedSpots.push( spot );
+
+        this.add( spot );
+
+        this.visible = true;
+
+    };
+
+
+
+
+    
+
+
+
+ var virtualtourtourContainer;
+ virtualtourtourContainer = document.getElementById( 'virtualtour-container' );
+   var  viewer = new PANOLENS.Viewer({ container: virtualtourtourContainer});
+
+   <% unless @panoramas.empty? %>
+  <% @panoramas.each_with_index do |pic,index| %>
+var panorama<%= index+1 %>;
+     panorama<%= index+1 %> = new PANOLENS.ImagePanorama( "<%= pic.image.url %>");
+     viewer.add(panorama<%= index+1 %>);
+     
+<% end %>
+<% end %>
+
+  <% unless @connections.empty? %>
+  <% @connections.each do |connection| %>
+       panorama<%= connection.split(';')[0] %>.link(panorama<%= connection.split(';')[3] %>, new THREE.Vector3( <%= connection.split(';')[1] %> ), 400, PANOLENS.DataImage.Arrow, "<%= connection.split(';')[2] %>" );
+    
+<% end %>
+<% end %>
+<% end %>
+
+
+
+
+
+<%= link_to 'Edit', edit_virtualtour_path(@virtualtour)  %> |  <%= link_to "Delete", virtualtour_path, method: :delete  %> |
+<%= link_to 'Back', virtualtours_path %>

@@ -22,6 +22,28 @@ end
    parent :posts, post
  end
 
+
+  crumb :virtualtours do
+   link "Виртуальные туры", virtualtours_path
+ end
+
+ crumb :virtualtour do |virtualtour|
+   link virtualtour.title, virtualtour_path
+   parent :virtualtours
+ end
+
+
+  crumb :virtualtouredit do |virtualtour|
+   link "Редактирование", edit_virtualtour_path
+   parent :virtualtour , virtualtour
+ end
+
+  crumb :virtualtournew do |virtualtour|
+   link "Создать", new_virtualtour_path
+   parent :virtualtours, virtualtour
+ end
+
+
 # crumb :projects do
 #   link "Projects", projects_path
 # end

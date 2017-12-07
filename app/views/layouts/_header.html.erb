@@ -5,8 +5,8 @@
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item" role="presentation"><%= link_to "Посты", posts_path, class: "nav-link"  %></li>
-<!--                         <li class="nav-item" role="presentation">  <%= link_to "Виртуальные туры", '#', class: "nav-link"  %></li>
-                           <li class="nav-item" role="presentation">  <%= link_to "Зайти через VK", '#', class: "nav-link"  %></li> -->
+                        <li class="nav-item" role="presentation">  <%= link_to "Виртуальные туры", virtualtours_path, class: "nav-link"  %></li>
+                         <!--   <li class="nav-item" role="presentation">  <%= link_to "Зайти через VK", '#', class: "nav-link"  %></li> -->
                         <li class="nav-item" role="presentation"><a class="nav-link" href="#">О проекте</a></li>
  <%- if current_user %>
                         <li class="dropdown"><a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#"><%= current_user.nickname %></a>

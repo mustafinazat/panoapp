@@ -24,6 +24,16 @@ $(function() {
 $(function () {
  
   // Search form
+  $('#virtualtours_search input').keyup(function () {
+    $.get($('#virtualtours_search').attr('action'), $('#virtualtours_search').serialize(), null, 'script');
+    return false;
+  });
+});
+
+
+$(function () {
+ 
+  // Search form
   $('#posts_search input').keyup(function () {
     $.get($('#posts_search').attr('action'), $('#posts_search').serialize(), null, 'script');
     return false;
@@ -31,10 +41,13 @@ $(function () {
 });
 
 
+
 $(document).on('click', '.pagination a', function () {
      $.getScript(this.href);
      return false;
   });
+
+
 
  //  if ($('.pagination').length && $('#posts').length) {
  //   $(window).scroll(function() {

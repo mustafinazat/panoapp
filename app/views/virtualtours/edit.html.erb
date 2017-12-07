@@ -1,0 +1,24 @@
+
+<h1>Editing Post</h1>
+<div class="container">
+<%= render 'form', virtualtour: @virtualtour %>
+</div>
+
+<h1>Удалить панорамы (клик по панораме)</h1>
+  <div id="gallery-container">
+  <% unless @virtualtour.panoramas.empty? %>
+  <% @virtualtour.panoramas.each do |panorama| %>
+  <%= link_to panorama, data: { confirm: "Are you sure?", method: "delete" } do %>
+ <img class="photo" src=" <%= panorama.image.url(:thumb) %>" >
+ <h1>&times;</h1>
+  <% end %>
+  <% end %>
+<% end %>
+
+
+
+    </div>
+
+
+<%= link_to 'Show', @virtualtour %> |
+<%= link_to 'Back', virtualtours_path %>

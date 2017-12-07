@@ -1,0 +1,4 @@
+
+  
+$('#virtualtours').html('<%= escape_javascript(render (@virtualtours)) %>');
+ $('#paginatediv').html("<%= j  will_paginate @virtualtours, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>");

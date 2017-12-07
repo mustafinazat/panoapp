@@ -1,0 +1,35 @@
+<%= form_with(model: virtualtour, local: true, :class => 'form-horizontal', multipart: true ) do |form| %>
+  <% if virtualtour.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(virtualtour.errors.count, "error") %> prohibited this virtualtour from being saved:</h2>
+
+      <ul>
+      <% virtualtour.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+      <div class="form-group">
+         <%= form.text_field :title, id: :virtualtour_title , placeholder: "Название", class: "form-control"%>
+    </div>
+
+    <div class="form-group">
+         <%= form.text_area :description, id: :virtualtour_description,rows: 5 , placeholder: "Описание", class: "form-control" %>
+    </div>
+
+        <div class="form-group d-none">
+         <%= form.text_area :connections, id: :virtualtour_connections,rows: 5 , placeholder: "Связи", class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+    <%= file_field_tag "images[]", id: 'images',  type: :file, multiple: true %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+
+<% end %>
+

@@ -1,0 +1,364 @@
+<% breadcrumb :virtualtournew, @virtualtour %>
+<%= javascript_include_tag "aos" %> 
+<%= javascript_include_tag "swiper.jquery.min" %>
+<%= javascript_include_tag "Simple-Slider" %>
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="mt-4 mb-3">Создать новый виртуальный тур</h3></div>
+    <div class="col-md-8 col-lg-9">
+
+                    <%= render 'form', virtualtour: @virtualtour %>
+
+                    <%= link_to 'Back', posts_path %>
+
+        <h3 class="text-center">Создание точек перехода</h3>
+        <div class="row">
+            <div class="col-lg-7 col-xl-7 simple-slider">
+                <h4 class="text-center mt-4 mb-3">1. Выбор панорамы (откуда)</h4>
+                <div class="swiper-container">
+                    <div class="swiper-wrapper" id="pano1">
+<div class="swiper-slide" style="background-image: url(&quot;https://placeholdit.imgix.net/~text?txtsize=68&amp;txt=Slideshow+Image&amp;w=1920&amp;h=500&quot;);"></div>
+
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-xl-5">
+                <h4 class="text-center mt-4 mb-3">2. Выбор точки</h4>
+                <div class="form-group"><small class="form-text text-muted">Ввердите текст</small>
+                    <input type="text" id="infospot-text" class="form-control"/>
+                </div>
+
+                    <div class="form-group">
+                    <textarea  class="form-control coords" /></textarea>
+                </div>
+
+
+                <a class="btn btn-primary" role="button" onclick="OpenPanorama()">Выбрать точку</a></div>
+            <div class="col-lg-7 col-xl-7 simple-slider">
+                <h4 class="text-center mt-4 mb-3">3. Выбор панорамы (куда)</h4>
+                <div class="swiper-container">
+                    <div class="swiper-wrapper" id="pano2">
+                    <div class="swiper-slide" style="background-image: url(&quot;https://placeholdit.imgix.net/~text?txtsize=68&amp;txt=Slideshow+Image&amp;w=1920&amp;h=500&quot;);"></div>
+                     </div>
+
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    </div>
+                    
+                </div>
+           
+            <div class="col-lg-4 col-xl-4">
+                <h4 class="text-center mt-4 mb-3">4. Добавление в список</h4>
+                <button class="btn btn-primary" type="button" onclick="addToList()">Добавить </button>
+            </div>
+            <div class="col-sm-12">
+                <h3 class="text-center">Точки перехода</h3>
+                <ul class="list-group" id="listOfConn">
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="col">
+        <p>Какие то инструкции</p>
+    </div>
+</div>
+
+
+    <div id="panorama-container">
+
+      <!-- Progress bar -->
+      <div id="progress_bar"></div>
+
+      <!-- Close button -->
+      <div class="closepano">
+        <i>&times;</i>
+      </div>
+
+      <!-- Main container -->
+      <div id="main-container">
+        
+      </div>
+    </div>
+
+
+
+    <div id="myModal" class="modal">
+<div class="loader"></div>
+
+</div>
+
+
+
+
+    <div id="panorama-container">
+
+      <!-- Progress bar -->
+      <div id="progress_bar"></div>
+
+      <!-- Close button -->
+      <div class="closepano">
+        <i>&times;</i>
+      </div>
+
+      <!-- Main container -->
+      <div id="main-container">
+        
+      </div>
+    </div>
+
+<%= javascript_include_tag "three.min" %>
+<%= javascript_include_tag "panolens.min"%>
+
+
+    <%= javascript_tag do %>
+var listofconns= document.getElementById("listOfConn");
+var textarea = document.getElementById("virtualtour_connections");
+function addToList() {
+var h4first = $('#pano1 > .swiper-slide-active > h4');
+var panofirst = h4first[0].innerText;
+var ConnectionDotCoord = $('.coords');
+var coords = ConnectionDotCoord[0].value;
+var infospotText = document.getElementById("infospot-text").value;
+var h4second = $('#pano2 > .swiper-slide-active > h4');
+var panosecond = h4second[0].innerText;
+var allparts = "Панорама " +panofirst.replace(/\D+/g,"") +";"+coords+";"+infospotText+"; Панорама "+panosecond.replace(/\D+/g,"");
+var elemoflist = document.createElement('li');
+elemoflist.className = 'list-group-item';
+elemoflist.innerHTML = allparts;
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "deleteitem";
+  span.appendChild(txt);
+  elemoflist.appendChild(span);
+  
+listofconns.appendChild(elemoflist);
+for (var i = 0; i < close.length; i++) {
+  close[i].onclick = function() {
+    var li = this.parentElement;
+    li.parentElement.removeChild(li);
+        updateTextarea();
+  }
+}
+    updateTextarea();
+}
+
+function updateTextarea()
+{
+textarea.textContent="";
+var elems = listofconns.childNodes;
+for(var i=1; i<elems.length; i++)
+{
+var elem = elems[i].childNodes[0].data;
+textarea.textContent+=((~elem.indexOf("Панорама"))? elem.replace(/Панорама/g,"") : elem)   +'/';
+}
+textarea.textContent = textarea.textContent.replace(/\s+/g, '');
+}
+var close = document.getElementsByClassName("deleteitem");
+
+var panoramaContainer, mainContainer, closeButton,  viewer, panorama,progressBar, progress;
+panoramaContainer = document.getElementById( 'panorama-container' );
+mainContainer = document.getElementById( 'main-container');
+      progressBar = document.getElementById( 'progress_bar' );
+      closeButton = panoramaContainer.querySelector( '.closepano' );
+     
+ function OpenPanorama () {
+
+ var img = $('#pano1 > .swiper-slide-active >img');
+ var panourl = img[0].src;
+   console.log(panourl);
+      console.log(img);
+
+       setupPanolens();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                panorama = new PANOLENS.ImagePanorama(panourl);
+
+                 infospot = new PANOLENS.Infospot( 350, PANOLENS.DataImage.Info );
+               panorama.addEventListener( 'progress', function ( event ) {
+             progress = event.progress.loaded / event.progress.total * 100;
+             progressBar.style.width = progress + '%';
+             if ( progress === 100 ) {
+             progressBar.style.opacity = 0;
+              }
+            } );
+            viewer.add( panorama );
+            panoramaContainer.classList.add( 'open' );
+
+
+
+
+
+           PANOLENS.Viewer.prototype.outputInfospotPosition = function() {
+                var t, e, n, i;
+                if (t = this.raycaster.intersectObject(this.panorama, !0), t.length > 0) switch (e = t[0].point, n = this.panorama.getWorldPosition(), i = new THREE.Vector3(-(e.x - n.x).toFixed(2), (e.y - n.y).toFixed(2), (e.z - n.z).toFixed(2)), this.options.output) {
+                    case "console":
+                        console.info(i.x + ", " + i.y + ", " + i.z);
+                        break;
+                    case "fortour":
+                    console.info(i.x + ", " + i.y + ", " + i.z);
+                        infospot.position.set( i.x, i.y, i.z );
+                        panorama.toggleInfospotVisibility(true);
+                        panorama.add(infospot);
+                        document.querySelector(".coords").value = i.x + ", " + i.y + ", " + i.z;
+                        break;
+                    case "overlay":
+                        this.outputDivElement.textContent = i.x + ", " + i.y + ", " + i.z
+                }
+            }
+
+
+
+          };
+         function setupPanolens () {
+         viewer = new PANOLENS.Viewer( { container: mainContainer, output: 'fortour'  } );
+             viewer.OUTPUT_INFOSPOT = 1;
+      };
+
+      function disposePanorama () {
+        panorama.dispose();
+        viewer.remove( panorama );
+        panorama = null;
+      };
+
+
+      function disposeViewer () {
+        viewer.dispose();
+        mainContainer.innerHTML = '';
+        viewer = null;
+      };
+
+
+            function outputViewer () {
+
+if ( viewer.OUTPUT_INFOSPOT == 1)
+{
+viewer.OUTPUT_INFOSPOT = 0;
+}
+else
+{
+viewer.OUTPUT_INFOSPOT = 1;
+}
+
+      };
+      
+
+
+      function init () {
+
+
+                      mainContainer.addEventListener( 'click', function () {
+
+
+outputViewer();
+
+
+        }, false );
+
+
+
+        // Dispose panorama when close
+        closeButton.addEventListener( 'click', function () {
+          disposePanorama();
+          disposeViewer();
+          progressBar.style.width = 0;
+          progressBar.style.opacity = 1;
+          panoramaContainer.classList.remove( 'open' );
+        }, false );
+
+      }
+      init();
+
+
+
+
+
+
+
+
+
+
+
+
+function handleFiles(e) {
+var output = document.getElementsByClassName('swiper-wrapper');
+var files = e.target.files;
+  if (!files.length) {
+    output[0].innerHTML = "";
+    output[1].innerHTML ="";
+  } else {
+     output[0].innerHTML = "";
+    output[1].innerHTML ="";
+
+   
+    for (var i = 0; i < files.length; i++) {
+   var div = document.createElement("div");
+    div.classList.add("d-flex", "justify-content-around", "swiper-slide");
+     div.style.height = "30vh";
+      var img = document.createElement("img");
+      img.src = window.URL.createObjectURL(files[i]);
+      img.classList.add("img-fluid");
+      img.onload = function() {
+       // window.URL.revokeObjectURL(this.src);
+      }
+      div.appendChild(img);
+      var info = document.createElement("h4");
+      info.innerHTML = "Панорама "+ (i+1);
+      div.appendChild(info);
+
+       output[0].appendChild(div);
+
+
+    }
+
+
+       output[1].innerHTML =  output[0].innerHTML;
+
+
+              var mySwiper = new Swiper ('.swiper-container', {
+        loop: true,
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev'
+    });
+  }
+}
+
+
+
+// проверяем поддерживает ли браузер file API
+if(window.File && window.FileReader && window.FileList && window.Blob) {
+  // если да, то как только страница загрузится
+  onload = function () {
+    // вешаем обработчик события, срабатывающий при изменении input'а
+
+    document.querySelector('#images').addEventListener('change', handleFiles, false);
+  }
+// если нет, то предупреждаем, что демо работать не будет
+} else {
+  alert('К сожалению ваш браузер не поддерживает file API');
+}
+
+
+
+
+<% end %>
