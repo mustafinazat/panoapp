@@ -2,17 +2,21 @@
 <% breadcrumb :posts, @posts %>
 
                 <div class="row">
-                <div class="col-lg-12">
-                    <h3 class="mt-4 mb-3">Посты</h3>
-					
-          <%= form_tag posts_path, :method => 'get', :id => "posts_search" do %>
-    <%= text_field_tag :search, params[:search] %>
-    <br/>
-  <a class="btn btn-success"><%= submit_tag "Найти", :name => nil %></a>
+                <div class="col-9 col-md-8 col-lg-9 col-xl-9 d-flex justify-content-between align-content-around navigation-clean-search">
+               <%= form_with url: posts_path, :class => 'form-inline', id: "posts_search",  method: :get, html: { style: "width:100%" }  do |form| %>
+                                     <div class="form-group d-flex flex-row justify-content-center align-items-baseline" style="width:100%;">
+                                     <label for="search_field" style="width:10%;"><i class="fa fa-search"></i></label>
+                                       <%= form.text_field :search, id: "search_field" , placeholder: "Начните вводить", class: "form-control form-control-lg d-block", style: "width:90%" 
+                                %>
+    </div>
 <% end %>
-<br/>
+                </div>
+                <div class="col-3 col-md-4 col-lg-3 col-xl-3 d-flex justify-content-end align-content-around align-self-center navigation-clean-search">
+                              <%= link_to new_post_path, class: 'btn btn-info' do %>
 
-				</div>
+ <i class="fa fa-edit"></i>
+ <% end %>
+                </div>
                 <div class="col-md-8 col-lg-9">
                     <div class="tz-gallery">
                         <div class="row" id="posts">

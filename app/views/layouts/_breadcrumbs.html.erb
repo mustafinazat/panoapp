@@ -1,0 +1,15 @@
+<% breadcrumbs style: :bootstrap do |links| %>
+<ol class="breadcrumb">
+  <% if links.any? %>
+    <% links.each do |link| %>
+      <li class="breadcrumb-item">
+      <%= link_to link.url, data: { turbolinks: false } do %>
+
+<span> <%= link.text  %></span>
+<% end %>
+
+      </li>
+    <% end %>
+  <% end %>
+  </ol>
+<% end %>

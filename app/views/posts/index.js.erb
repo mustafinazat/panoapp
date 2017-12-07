@@ -1,8 +1,6 @@
 
-
-
-
-
+  
 $('#posts').html('<%= escape_javascript(render (@posts)) %>');
  $('#paginatediv').html("<%= j  will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>");
+
 

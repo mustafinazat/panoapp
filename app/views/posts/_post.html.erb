@@ -8,7 +8,7 @@
 
  <% if (!post.vk_album_id.empty?)
    vk = VkontakteApi::Client.new(session[:token]) %>
- <img src=" <%= vk.photos.get(owner_id: post.vk_owner_id, album_id: post.vk_album_id).first.src %>" >
+ <img src=" <%= vk.photos.get(owner_id: post.vk_owner_id, album_id: post.vk_album_id).first.src_xbig %>" >
  <% else %>
  <img src=" <%= post.panoramas.first.image.url(:thumb) %>" >
 <% end %>
