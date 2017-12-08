@@ -157,7 +157,7 @@ for(var i=1; i<elems.length; i++)
 var elem = elems[i].childNodes[0].data;
 textarea.textContent+=((~elem.indexOf("Панорама"))? elem.replace(/Панорама/g,"") : elem)   +'/';
 }
-textarea.textContent = textarea.textContent.replace(/\s+/g, '');
+//textarea.textContent = textarea.textContent.replace(/\s+/g, '');
 }
 var close = document.getElementsByClassName("deleteitem");
 
@@ -325,8 +325,6 @@ var files = e.target.files;
       div.appendChild(info);
 
        output[0].appendChild(div);
-
-
     }
 
 
