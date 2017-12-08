@@ -70,39 +70,40 @@
         spot = new PANOLENS.Infospot( scale, img );
         spot.position.copy( position );
         spot.addHoverText(text);
-spot.element.locked = true;
         spot.toPanorama = pano;
         spot.addEventListener( 'click', function () {
-
-            /**
-             * Viewer handler event
-             * @type {object}
-             * @event PANOLENS.Panorama#panolens-viewer-handler
-             * @property {string} method - Viewer function name
-             * @property {*} data - The argument to be passed into the method
-             */
             scope.dispatchEvent( { type : 'panolens-viewer-handler', method: 'setPanorama', data: pano } );
 
         } );
+
+
+              virtualtourtourContainer.addEventListener( 'click', function () {
+spot.element.style.display ="block";
+spot.element._width = spot.element.clientWidth;
+spot.element._height = spot.element.clientHeight;
+
+        }, false );
+
+
 
         this.linkedSpots.push( spot );
 
         this.add( spot );
 
-        this.visible = true;
+        this.visible = false;
 
     };
 
 
 
 
-    
+
 
 
 
  var virtualtourtourContainer;
  virtualtourtourContainer = document.getElementById( 'virtualtour-container' );
-   var  viewer = new PANOLENS.Viewer({ container: virtualtourtourContainer});
+   var  viewer = new PANOLENS.Viewer({ container: virtualtourtourContainer, autoHideInfospot: false});
 
    <% unless @panoramas.empty? %>
   <% @panoramas.each_with_index do |pic,index| %>
