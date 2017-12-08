@@ -277,10 +277,19 @@ outputViewer();
                               mainContainer.addEventListener( 'touchstart', function () {
 
 
-outputViewer();
+viewer.OUTPUT_INFOSPOT = 1;
 
 
         }, false );
+
+                                      mainContainer.addEventListener( 'touchend', function () {
+
+
+viewer.OUTPUT_INFOSPOT = 0;
+
+
+        }, false );
+
 
 
 
