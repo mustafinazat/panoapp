@@ -265,26 +265,16 @@ viewer.OUTPUT_INFOSPOT = 1;
       function init () {
 
 
-            
+                      mainContainer.addEventListener( 'click', function () {
 
 
-                              mainContainer.addEventListener( 'touchstart', function () {
-
-
-viewer.OUTPUT_INFOSPOT = 1;
-
-
-        }, false );
-
-                                      mainContainer.addEventListener( 'touchend', function () {
-
-
-viewer.OUTPUT_INFOSPOT = 0;
+outputViewer();
 
 
         }, false );
 
 
+        
 
 
 
