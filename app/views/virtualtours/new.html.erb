@@ -113,7 +113,7 @@
     </div>
 
 <%= javascript_include_tag "three.min" %>
-<%= javascript_include_tag "panolens.min"%>
+<%= javascript_include_tag "panolens.min.newvt"%>
 
 
     <%= javascript_tag do %>
@@ -207,6 +207,12 @@ mainContainer = document.getElementById( 'main-container');
 
 
 
+
+
+
+
+
+
            PANOLENS.Viewer.prototype.outputInfospotPosition = function() {
                 var t, e, n, i;
                 if (t = this.raycaster.intersectObject(this.panorama, !0), t.length > 0) switch (e = t[0].point, n = this.panorama.getWorldPosition(), i = new THREE.Vector3(-(e.x - n.x).toFixed(2), (e.y - n.y).toFixed(2), (e.z - n.z).toFixed(2)), this.options.output) {
@@ -223,14 +229,20 @@ mainContainer = document.getElementById( 'main-container');
                     case "overlay":
                         this.outputDivElement.textContent = i.x + ", " + i.y + ", " + i.z
                 }
-            }
+            };
+
+
+ 
+
 
 
 
           };
          function setupPanolens () {
-         viewer = new PANOLENS.Viewer( { container: mainContainer, output: 'fortour'  } );
+         viewer = new PANOLENS.Viewer( { container: mainContainer, output: 'fortour' , autoHideInfospot: false } );
              viewer.OUTPUT_INFOSPOT = 1;
+
+
       };
 
       function disposePanorama () {
@@ -259,19 +271,31 @@ viewer.OUTPUT_INFOSPOT = 1;
 }
 
       };
+
+
+  
+
       
 
 
       function init () {
 
 
+
+
+
+
+
+
+
                       mainContainer.addEventListener( 'click', function () {
 
 
-outputViewer();
+//outputViewer();
 
 
         }, false );
+
 
 
 
