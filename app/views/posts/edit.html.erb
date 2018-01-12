@@ -1,25 +1,46 @@
 <% breadcrumb :postedit, @post %>
 
-<h1>Editing Post</h1>
+<h1>Редактирование</h1>
 <div class="container">
 <%= render 'form', post: @post %>
 </div>
 
-<h1>Удалить панорамы (клик по панораме)</h1>
-  <div id="gallery-container">
+<%- if !@post.panoramas.empty? %>
+<h5>Удаление панорам</h5>
+<% end %>
+                <div class="col-md-8 col-lg-9">
+                    <div class="tz-gallery">
+                        <div class="row">
   <% unless @post.panoramas.empty? %>
   <% @post.panoramas.each do |panorama| %>
-  <%= link_to panorama, data: { confirm: "Are you sure?", method: "delete" } do %>
- <img class="photo" src=" <%= panorama.image.url(:thumb) %>" >
- <h1>&times;</h1>
+
+
+
+  <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+    <div class="thumbnail">
+
+
+<span style="display:none"><%= imageoriginal(panorama) %></span>
+ <img src=" <%= imagethumb(panorama) %>">
+ <%= link_to "Удалить", panorama, data: { confirm: "Вы уверены?", method: "delete" }, class: "btn btn-danger btn-block" %>
+
+   </div>
+ </div>
+
   <% end %>
   <% end %>
-<% end %>
 
 
 
     </div>
-
-
-<%= link_to 'Show', @post %> |
+      </div>
+      <%= link_to 'Show', @post %> |
 <%= link_to 'Back', posts_path %>
+        </div>
+     
+
+
+
+
+
+

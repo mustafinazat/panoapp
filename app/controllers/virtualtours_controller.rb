@@ -91,11 +91,11 @@ class VirtualtoursController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_virtualtour
-      @virtualtour = Virtualtour.find(params[:id])
+      @virtualtour = Virtualtour.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def virtualtour_params
-      params.require(:virtualtour).permit(:title, :description, :connections)
+      params.require(:virtualtour).permit(:title, :description, :connections, :slug, :allv_tags)
     end
 end

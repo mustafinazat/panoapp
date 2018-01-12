@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171207195012) do
+ActiveRecord::Schema.define(version: 20171211183336) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "faqs", force: :cascade do |t|
+    t.string "question"
+    t.string "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "panoramas", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -21,6 +31,7 @@ ActiveRecord::Schema.define(version: 20171207195012) do
     t.datetime "image_updated_at"
     t.string "parentlink_type"
     t.integer "parentlink_id"
+    t.string "image_file_name_thumb"
     t.index ["parentlink_type", "parentlink_id"], name: "index_panoramas_on_parentlink_type_and_parentlink_id"
   end
 
@@ -32,6 +43,25 @@ ActiveRecord::Schema.define(version: 20171207195012) do
     t.integer "user_id"
     t.string "vk_owner_id", default: ""
     t.string "vk_album_id", default: ""
+    t.string "slug"
+    t.index ["slug"], name: "index_posts_on_slug"
+  end
+
+  create_table "taggings", force: :cascade do |t|
+    t.bigint "post_id"
+    t.bigint "virtualtour_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_taggings_on_post_id"
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+    t.index ["virtualtour_id"], name: "index_taggings_on_virtualtour_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -64,6 +94,11 @@ ActiveRecord::Schema.define(version: 20171207195012) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_virtualtours_on_slug"
   end
 
+  add_foreign_key "taggings", "posts"
+  add_foreign_key "taggings", "tags"
+  add_foreign_key "taggings", "virtualtours"
 end

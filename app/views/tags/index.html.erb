@@ -1,0 +1,1 @@
+ <div id="tags"><%= raw @tags.map(&:name).map{ |t| link_to t, tag_path(t), remote: true, data: { method: "delete" }, class: 'badge badge-primary' }.join(' ') %></div>

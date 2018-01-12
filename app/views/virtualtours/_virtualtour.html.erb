@@ -10,6 +10,7 @@
             <h3><%= virtualtour.title %> от</h3>
             <h4><%= virtualtour.user.nickname %></h4>
             </div>
+             <%= raw virtualtour.tags.map(&:name).map{ |t| link_to t, tag_path(t), class: 'badge badge-primary' }.join(' ') %>
  <% end %>
 
 	 </div>

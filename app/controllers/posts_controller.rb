@@ -8,16 +8,14 @@ class PostsController < ApplicationController
   def index
     @posts = Post.paginate(page: params[:page], per_page: 6).order("created_at desc").search(params[:search])    
 
-
-
   end
   # GET /posts/1
   # GET /posts/1.json
   def show
-  
-    respond_to do |format|
+     respond_to do |format|
+      format.js
       format.html # show.html.erb
-      format.json { render json: @post }
+      #format.json { render json: @post }
     end
   end
   # GET /posts/new
@@ -33,22 +31,52 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
     respond_to do |format|
+
+      begin
       if @post.save
 
-        if params[:images]
+
+   if !params[:post][:vk_album_id].empty?
+          # The magic is here ;)
+vk = VkontakteApi::Client.new(session[:token]) 
+
+@photos = vk.photos.get(owner_id: params[:post][:vk_owner_id], album_id: params[:post][:vk_album_id]);
+@photos.each { |image|
+
+          @post.panoramas.create(image_file_name: image.src_xxbig, image_file_name_thumb: image.src_xbig )
+          }
+
+        else    
+
+
+         if params[:images]
           # The magic is here ;)
           params[:images].each { |image|
             @post.panoramas.create(image: image)
           }
         end
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
+      end
+        
+
+
+
+       format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }
+
+      end #if post save
+
+
+    rescue
+         flash[:alert] = "Vk album problem"
+        format.html { render :new }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
       end
-    end
-  end
+
+    end #respond do
+  end   #def
 
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
@@ -88,11 +116,11 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find(params[:id])
+      @post = Post.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :description, :vk_owner_id, :vk_album_id)
+      params.require(:post).permit(:title, :description, :vk_owner_id, :vk_album_id,:slug, :all_tags)
     end
 end

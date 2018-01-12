@@ -1,3 +1,6 @@
+
+
+
 <%= form_with(model: post, local: true, :class => 'form-horizontal', multipart: true ) do |form| %>
   <% if post.errors.any? %>
     <div id="error_explanation">
@@ -12,27 +15,57 @@
   <% end %>
 
       <div class="form-group">
+        <%= form.label :title,  "Название" ,  class: "mr-sm-2"%>
          <%= form.text_field :title, id: :post_title , placeholder: "Название", class: "form-control"%>
     </div>
 
     <div class="form-group">
+            <%= form.label :description,  "Описание" ,  class: "mr-sm-2"%>
          <%= form.text_area :description, id: :post_description,rows: 5 , placeholder: "Описание", class: "form-control" %>
     </div>
 
-    <div class="form-group">
-    <%= file_field_tag "images[]", type: :file, multiple: true %>
-  </div>
 
-    <div class="form-group">
+    <ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#files" role="tab">Добавить файлы</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#vk" role="tab">Альбом VK</a>
+  </li>
+
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="files" role="tabpanel">    <div class="form-group">
+  <br>
+    <%= file_field_tag "images[]", type: :file, multiple: true %>
+  </div></div>
+  <div class="tab-pane" id="vk" role="tabpanel">    <div class="form-group">
+  <br>
+    <%= form.label :description,  "VK ID владельца альбома" ,  class: "mr-sm-2"%>
+
          <%= form.text_field :vk_owner_id, id: :vk_owner_id , placeholder: "vk_owner_id", class: "form-control"%>
     </div>
+    <div class="form-group">
+        <%= form.label :description,  "VK ID альбома" ,  class: "mr-sm-2"%>
+         <%= form.text_field :vk_album_id, id: :vk_album_id , placeholder: "vk_album_id", class: "form-control"%>
+    </div></div>
+</div>
+
+
+
+
 
       <div class="form-group">
-         <%= form.text_field :vk_album_id, id: :vk_album_id , placeholder: "vk album id", class: "form-control"%>
+       <%= form.label :description,  "Теги" ,  class: "mr-sm-2"%>
+         <%= form.text_field :all_tags, id: :all_tags, placeholder: "Теги", class: "form-control"%>
     </div>
 
+
+
   <div class="form-group">
-    <%= form.submit class: "btn btn-primary" %>
+    <%= form.submit "Сохранить", class: "btn btn-primary" %>
   </div>
 
 <% end %>

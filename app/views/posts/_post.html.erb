@@ -6,18 +6,19 @@
 
 
 
- <% if (!post.vk_album_id.empty?)
-   vk = VkontakteApi::Client.new(session[:token]) %>
- <img src=" <%= vk.photos.get(owner_id: post.vk_owner_id, album_id: post.vk_album_id).first.src_xbig %>" >
- <% else %>
- <img src=" <%= post.panoramas.first.image.url(:thumb) %>" >
-<% end %>
+
+ <img src=" <%= imagethumb(post.panoramas.first) %>" >
+
 
 
          <div class="caption">
             <h3><%= post.title %> от</h3>
-            <h4><%= post.user.nickname %></h4>
+            <h3><%= post.user.nickname %></h3>
+
+           
             </div>
+ <%= raw post.tags.map(&:name).map{ |t| link_to t, tag_path(t), class: 'badge badge-primary' }.join(' ') %>
+
  <% end %>
 
 	 </div>

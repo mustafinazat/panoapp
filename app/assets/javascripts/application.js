@@ -21,19 +21,17 @@
 $(function() {
 
 
-$(function () {
+// $(function () {
  
-  // Search form
-  $('#virtualtours_search input').keyup(function () {
-    $.get($('#virtualtours_search').attr('action'), $('#virtualtours_search').serialize(), null, 'script');
-    return false;
-  });
-});
-
+//   // Search form
+//   $('#virtualtours_search input').keyup(function () {
+//     $.get($('#virtualtours_search').attr('action'), $('#virtualtours_search').serialize(), null, 'script');
+//     return false;
+//   });
+// });
 
 $(function () {
- 
-  // Search form
+   // Search form
   $('#posts_search input').keyup(function () {
     $.get($('#posts_search').attr('action'), $('#posts_search').serialize(), null, 'script');
     return false;
@@ -42,23 +40,23 @@ $(function () {
 
 
 
-$(document).on('click', '.pagination a', function () {
-     $.getScript(this.href);
-     return false;
-  });
+
+// $(document).on('click', '.pagination a', function () {
+//      $.getScript(this.href);
+//      return false;
+//   });
 
 
-
- //  if ($('.pagination').length && $('#posts').length) {
- //   $(window).scroll(function() {
- //      const url = $('.pagination .next a').attr('href');
- //      if (url && ($(window).scrollTop() > ($(document).height() - $(window).height() - 50))) {
- //        $('.pagination').text('Загрузка статей...');
- //        return $.getScript(url);
- //      }
- //   });
- //   return $(window).scroll();
- // }
+  if ($('.pagination').length && $('#posts').length) {
+   $(window).scroll(function() {
+      const url = $('.pagination .next a').attr('href');
+      if (url && ($(window).scrollTop() > ($(document).height() - $(window).height() - 50))) {
+        $('.pagination').text('Загрузка постов...');
+        return $.getScript(url);
+      }
+   });
+   return $(window).scroll();
+ }
 });
 
 

@@ -43,6 +43,7 @@ GEM
     arel (8.0.0)
     autoprefixer-rails (7.2.1)
       execjs
+    babosa (1.0.2)
     bcrypt (3.1.11)
     bindex (0.5.0)
     bootstrap (4.0.0.beta2.1)
@@ -92,6 +93,8 @@ GEM
     ffi (1.9.18)
     font-awesome-sass (4.7.0)
       sass (>= 3.2)
+    friendly_id (5.2.3)
+      activerecord (>= 4.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     gretel (3.0.9)
@@ -155,6 +158,7 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
+    pg (0.21.0)
     popper_js (1.12.5)
     public_suffix (3.0.1)
     puma (3.11.0)
@@ -222,7 +226,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.3.13)
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
       ref
@@ -264,6 +267,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  babosa
   bootstrap (~> 4.0.0.beta2.1)
   byebug
   capybara (~> 2.13)
@@ -271,6 +275,7 @@ DEPENDENCIES
   devise
   devise-i18n
   font-awesome-sass
+  friendly_id
   gretel
   jbuilder (~> 2.5)
   jquery-rails
@@ -278,6 +283,7 @@ DEPENDENCIES
   meta-tags
   omniauth-vkontakte
   paperclip (~> 5.0.0)
+  pg (~> 0.18)
   puma (~> 3.7)
   pundit
   rails (~> 5.1.4)
@@ -285,7 +291,6 @@ DEPENDENCIES
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)
-  sqlite3
   therubyracer
   turbolinks (~> 5)
   tzinfo-data

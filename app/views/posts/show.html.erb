@@ -1,7 +1,8 @@
+
+
         <% set_meta_tags description: 'Member login page.',
                  keywords: 'Site, Login, Members', reverse: true
     %>
-
 
          <% breadcrumb :post, @post %>
 
@@ -22,10 +23,6 @@
                 <% if policy(@post).update? %>
                 <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1 align-items-baseline">
 
-
-
-
-
                     <%= link_to edit_post_path(@post) , class: 'btn btn-info' do %>
 
  <i class="fa fa-edit"></i>
@@ -41,47 +38,12 @@
                 
                   
                 </div>
-
 <% end %>
+
                 <div class="col-md-8 col-lg-9">
                     <div class="tz-gallery">
                         <div class="row">
- <% if (!@post.vk_album_id.empty?)
-   vk = VkontakteApi::Client.new(session[:token]) %>
-  <% unless vk.photos.get(owner_id: @post.vk_owner_id, album_id: @post.vk_album_id).empty? %>
-  <% vk.photos.get(owner_id: @post.vk_owner_id, album_id: @post.vk_album_id).each do |panorama| %>
 
-  <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-    <div class="thumbnail">
-
-
-<span style="display:none"><%= panorama.src_xxbig %></span>
-
- <img src=" <%= panorama.src_xbig %>" onclick="OpenPanorama(this)" >
-
-
-
-   </div>
- </div>
-
-
-  <% end %>
-<% end %>
-
-
-
- <img src=" <%=  %>" >
-
-
-
-
-
-
-
-
-
-
- <% else %>
 
 
 
@@ -94,8 +56,11 @@
     <div class="thumbnail">
 
 
-<span style="display:none"><%= panorama.image.url %></span>
- <img src=" <%= panorama.image.url(:thumb) %>" onclick="OpenPanorama(this)" >
+<span style="display:none"><%= imageoriginal(panorama) %></span>
+ <img src=" <%= imagethumb(panorama) %>" onclick="OpenPanorama(this)" >
+  <%= link_to "ССылка", panorama ,  data: { params: "type=10"} %>
+ <a data-remote="true"  data-url= <%= panorama_url %> data-params="type=pano" data-method="get">Обычная</a>
+     <a data-remote="true"  data-url= <%= panorama_url %> data-params="type=littilepl" data-method="get">Little Planet</a>
    </div>
  </div>
 
@@ -108,11 +73,17 @@
 
 
 
-<% end %>
+
 
 
                         </div>
                     </div>
+
+
+
+
+
+
                 </div>
 
 
@@ -122,6 +93,10 @@
 
 
                 <div class="col-md-4 col-lg-3 d-none d-sm-none d-md-block">
+
+
+
+
 <p>Автор: <%= link_to @post.user.email, @post.user %> </p>
 <p>
   <%= @post.description %>
@@ -157,6 +132,8 @@
 
 
     <%= javascript_tag do %>
+
+
 
  var panoramaContainer, mainContainer, closeButton,  viewer, panorama,progressBar, progress;
       panoramaContainer = document.getElementById( 'panorama-container' );

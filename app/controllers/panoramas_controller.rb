@@ -10,7 +10,8 @@ class PanoramasController < ApplicationController
   def show
     @panorama = Panorama.find(params[:id])
     respond_to do |format|
-      format.html # show.html.erb
+      format.html {render layout: false }# show.html.erb
+      format.js
       format.json { render json: @panorama }
     end
   end

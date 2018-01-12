@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  post: one
+  virtualtours: one
+  tag_belongs_to: MyString
+
+two:
+  post: two
+  virtualtours: two
+  tag_belongs_to: MyString
