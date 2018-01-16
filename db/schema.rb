@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171211183336) do
+ActiveRecord::Schema.define(version: 20180114142647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "articles", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "user_id"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "picture_file_name"
+    t.string "picture_content_type"
+    t.integer "picture_file_size"
+    t.datetime "picture_updated_at"
+    t.index ["slug"], name: "index_articles_on_slug"
+  end
 
   create_table "faqs", force: :cascade do |t|
     t.string "question"
@@ -53,6 +67,8 @@ ActiveRecord::Schema.define(version: 20171211183336) do
     t.bigint "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "article_id"
+    t.index ["article_id"], name: "index_taggings_on_article_id"
     t.index ["post_id"], name: "index_taggings_on_post_id"
     t.index ["tag_id"], name: "index_taggings_on_tag_id"
     t.index ["virtualtour_id"], name: "index_taggings_on_virtualtour_id"
@@ -83,6 +99,10 @@ ActiveRecord::Schema.define(version: 20171211183336) do
     t.datetime "avatar_updated_at"
     t.string "nickname"
     t.text "description"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -98,6 +118,7 @@ ActiveRecord::Schema.define(version: 20171211183336) do
     t.index ["slug"], name: "index_virtualtours_on_slug"
   end
 
+  add_foreign_key "taggings", "articles"
   add_foreign_key "taggings", "posts"
   add_foreign_key "taggings", "tags"
   add_foreign_key "taggings", "virtualtours"

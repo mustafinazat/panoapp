@@ -1,0 +1,35 @@
+<%= tinymce %>
+<%= form_with(model: article, local: true) do |form| %>
+  <% if article.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(article.errors.count, "error") %> prohibited this article from being saved:</h2>
+
+      <ul>
+      <% article.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+        <div class="form-group">
+        <%= form.label :title,  "Название" ,  class: "mr-sm-2"%>
+         <%= form.text_field :title, id: :post_title , placeholder: "Название", class: "form-control"%>
+    </div>
+    <div class="form-group">
+            <%= form.label :description,  "Описание" ,  class: "mr-sm-2"%>
+         
+         <%= form.text_area :description, :class => "tinymce", :rows => 10, :cols => 120 %>
+    </div>
+          <div class="form-group">
+       <%= form.label :description,  "Теги" ,  class: "mr-sm-2"%>
+         <%= form.text_field :all_tags, id: :all_tags, placeholder: "Теги", class: "form-control"%>
+    </div>
+     <div class="form-group">
+          <i>Выбрать картинку</i><br />
+      <%= form.file_field :picture %>
+  </div>
+    <div class="form-group">
+    <%= form.submit "Сохранить", class: "btn btn-primary" %>
+  </div>
+
+<% end %>

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 	
+  resources :articles
   get 'tags/show'
 
   resources :virtualtours

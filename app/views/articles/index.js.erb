@@ -1,0 +1,32 @@
+<% if (params.include?(:search) and params.include?(:page) )%>
+
+$('#articles').append("<%= j render(@articles) %>");
+<% if @articles.next_page %>
+    $('#paginatediv').html("<%= j  will_paginate @articles, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>");
+<% else %>
+    $('#paginatediv').html("");
+<% end %>
+
+
+<% else %>
+
+<% if params.include?(:search) %>
+
+$('#articles').html("<%= escape_javascript(render (@articles)) %>");
+$('#paginatediv').html("<%= j  will_paginate @articles, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>");
+<% end %>
+
+<% if params.include?(:page) %>
+$('#articles').append("<%= j render(@articles) %>");
+<% if @articles.next_page %>
+    $('#paginatediv').html("<%= j  will_paginate @articles, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>");
+<% else %>
+    $('#paginatediv').html("");
+<% end %>
+<% end %>
+
+<% end %>
+
+
+
+

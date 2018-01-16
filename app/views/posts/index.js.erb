@@ -1,3 +1,20 @@
+<% if (params.include?(:search) and params.include?(:page) )%>
+
+
+
+
+$('#posts').append("<%= j render(@posts) %>");
+<% if @posts.next_page %>
+    $('#paginatediv').html("<%= j  will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>");
+<% else %>
+    $('#paginatediv').html("");
+<% end %>
+
+
+
+<%else%>
+
+
 <% if params.include?(:search) %>
 
 $('#posts').html("<%= escape_javascript(render (@posts)) %>");
@@ -10,6 +27,7 @@ $('#posts').append("<%= j render(@posts) %>");
     $('#paginatediv').html("<%= j  will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>");
 <% else %>
     $('#paginatediv').html("");
+<% end %>
 <% end %>
 <% end %>
 

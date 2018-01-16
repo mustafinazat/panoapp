@@ -45,6 +45,7 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'will_paginate-bootstrap4'
 gem 'friendly_id'
 gem 'babosa'
+gem 'tinymce-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

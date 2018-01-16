@@ -61,6 +61,21 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "pano_app_test_#{Rails.env}"
   config.action_mailer.perform_caching = false
+config.action_mailer.default_url_options = { :host => 'http://i360.cam' }
+
+
+  config.action_mailer.delivery_method = :smtp
+
+config.action_mailer.smtp_settings = {
+address: "smtp.gmail.com",
+port: 587,
+domain: "gmail.com",
+authentication: "plain",
+enable_starttls_auto: true,
+user_name: "imfam321@gmail.com",
+password: "azxca123"
+}
+
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

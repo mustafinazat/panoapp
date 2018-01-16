@@ -44,6 +44,27 @@ end
  end
 
 
+   crumb :articles do
+   link "Статьи", articles_path
+ end
+
+ crumb :article do |article|
+   link article.title, article_path
+   parent :articles
+ end
+
+
+  crumb :articleedit do |article|
+   link "Редактирование", edit_article_path
+   parent :article , article
+ end
+
+  crumb :articlenew do |article|
+   link "Создать", new_article_path
+   parent :articles, article
+ end
+
+
 # crumb :projects do
 #   link "Projects", projects_path
 # end

@@ -8,6 +8,7 @@ class User < ApplicationRecord
   validates_attachment :avatar, :content_type => { :content_type => "image/jpeg", :message => "Only JPEG formats allowed" }
   has_many :posts, dependent: :destroy
   has_many :virtualtours, dependent: :destroy
+  has_many :articles, dependent: :destroy
 
 
  # def self.from_vkontakte(auth)

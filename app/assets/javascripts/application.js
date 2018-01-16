@@ -15,6 +15,7 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
+//= require tinymce
 
 
 
@@ -41,6 +42,19 @@ $(function () {
 
 
 
+$(function () {
+   // Search form
+  $('#articles_search input').keyup(function () {
+    $.get($('#articles_search').attr('action'), $('#articles_search').serialize(), null, 'script');
+    return false;
+  });
+});
+
+
+
+
+
+
 // $(document).on('click', '.pagination a', function () {
 //      $.getScript(this.href);
 //      return false;
@@ -51,12 +65,26 @@ $(function () {
    $(window).scroll(function() {
       const url = $('.pagination .next a').attr('href');
       if (url && ($(window).scrollTop() > ($(document).height() - $(window).height() - 50))) {
-        $('.pagination').text('Загрузка постов...');
+        $('nav.pagination').text('Загрузка постов...');
         return $.getScript(url);
       }
    });
    return $(window).scroll();
  }
+
+
+  if ($('.pagination').length && $('#articles').length) {
+   $(window).scroll(function() {
+      const url = $('.pagination .next a').attr('href');
+      if (url && ($(window).scrollTop() > ($(document).height() - $(window).height() - 50))) {
+        $('nav.pagination').text('Загрузка статей...');
+        return $.getScript(url);
+      }
+   });
+   return $(window).scroll();
+ }
+
+
 });
 
 
