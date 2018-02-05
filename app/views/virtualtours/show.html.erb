@@ -1,24 +1,48 @@
          <% breadcrumb :virtualtour, @virtualtour %>
 <div class="row">
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-        <h3 class="mt-4 mb-3"><%= @virtualtour.title %></h3></div>
-    <div class="col-md-8 col-lg-9" style="height:60vh;" >
+  <div class="col-8 col-sm-8 col-md-10 col-lg-10">
+    <h3 class="mt-4 mb-3"><%= title @virtualtour.title %></h3></div>
+
+  <% if policy(@virtualtour).update? %>
+      <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1 align-items-baseline">
+
+        <%= link_to edit_virtualtour_path(@virtualtour) , class: 'btn btn-info' do %>
+
+            <i class="fa fa-edit"></i>
+        <% end %>
+      </div>
+      <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1 align-items-baseline">
+        <%= link_to virtualtour_path, method: :delete , class: 'btn btn-danger' do %>
+            <i class="fa fa-remove"></i>
+        <% end %>
+
+      </div>
+  <% end %>
+
+  <div class="col-md-9 col-lg-9" style="height:60vh;" >
           <div id="virtualtour-container">
     </div>
-    </div>
-    <div class="col-md-4 col-lg-3">
-<p>Автор: <%= link_to @virtualtour.user.email, @virtualtour.user %> </p>
-<p>
-  <%= @virtualtour.description %>
-</p>
 
-<!-- Put this script tag to the <head> of your page -->
+  </div>
+
+  <div class=" col-md-3 col-lg-3">
+    <br>
+      <div class="d-flex justify-content-between">
+        <small> <i class="fa fa-user-o" aria-hidden="true"> </i> <%= link_to @virtualtour.user.nickname, @virtualtour.user %></small>
+        <small> <i class="fa fa-calendar" aria-hidden="true"> </i> <%= @virtualtour.created_at.strftime( "%d.%m.%Y")%></small>
+      </div>
+      <hr>
+      <%= raw @virtualtour.tags.map(&:name).map{ |t| link_to "#"+ t, tag_path(t), class: 'badge badge-primary' }.join(' ') %>
 
 
+      <hr>
+
+      <p>
+        <%= @virtualtour.description %>
+      </p>
 
     </div>
 </div>
-
 
 <%= javascript_include_tag "three.min" %>
 <%= javascript_include_tag "panolens.min"%>
@@ -132,7 +156,3 @@ var panorama<%= index+1 %>;
 
 
 
-
-
-<%= link_to 'Edit', edit_virtualtour_path(@virtualtour)  %> |  <%= link_to "Delete", virtualtour_path, method: :delete  %> |
-<%= link_to 'Back', virtualtours_path %>

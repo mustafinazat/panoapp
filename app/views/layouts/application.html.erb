@@ -12,25 +12,15 @@
   <body>
 
    <%= render 'layouts/header' %>
-
     <div class="container">
-
-
         <%= flash_messages %>
-
-
-
  <%= render 'layouts/breadcrumbs' %>
-
     </div>
-
-       <div class="container">
-             	 <%= yield %>
+ <div class="container">
+        <%= yield %>
    </div>
 
-
  <%= render 'layouts/footer' %>
-
 
   </body>
 </html>

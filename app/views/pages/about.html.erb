@@ -1,1 +1,22 @@
+<% breadcrumb :about %>
 Тут будет страница about
+
+
+<script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
+
+
+<div id='vrview'></div>
+
+
+<script>
+    window.addEventListener('load', onVrViewLoad)
+    function onVrViewLoad() {
+        var vrView = new VRView.Player('#vrview', {
+            width: '100%',
+            height: 300,
+            preview: 'https://pp.userapi.com/c306508/v306508367/24d/JbTXp8Rmd-E.jpg',
+            image: 'https://pp.userapi.com/c306508/v306508367/24d/JbTXp8Rmd-E.jpg',
+            is_stereo: true
+        });
+    }
+</script>

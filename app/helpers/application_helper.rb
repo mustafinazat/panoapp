@@ -24,13 +24,13 @@ end
 
   def imageoriginal(panorama)
     if panorama
-  if panorama.parentlink.vk_album_id.empty? 
-    panorama.image.url
-else
-  panorama.image_file_name
+      if panorama.parentlink.vk_album_id.empty?
+        panorama.image.url
+      else
+        panorama.image_file_name
+      end
+    end
   end
-  end
-end
 
   def imagethumb(panorama) 
   if panorama

@@ -4,8 +4,6 @@ def index
     @faq = Faq.new
   end
 
-
-
 	def create
   @faq = Faq.new(faq_params)
  

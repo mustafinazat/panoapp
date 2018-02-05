@@ -1,22 +1,31 @@
 class Virtualtour < ApplicationRecord
+
+
+  after_commit :update_slug, on: :create
 	belongs_to :user
+  before_save :default_values
 	has_many :panoramas, as: :parentlink , :dependent => :destroy
 	has_many :taggings
   has_many :tags, through: :taggings
+  validates :title, presence: { :message => " должно быть заполнено"}
 
 
 
+  scope :closed, -> { where(closed: true) }
+  scope :opened, -> { where(closed: false) }
 
 
 
+  def default_values
+    self.closed ||= false if self.closed.nil?
+  end
 
 
-  def allv_tags
+  def all_tags
  self.tags.map(&:name).join(', ')
 end
 
-def allv_tags=(names)
-
+def all_tags=(names)
  self.tags = names.split(",").map do |name|
   Tag.where(name: name.strip).first_or_create!
 end
@@ -25,18 +34,12 @@ end
 extend FriendlyId
 
 
-
-
-
  friendly_id :slug_candidates, use: :slugged
  def slug_candidates
     [
-      
-      [id.to_s, title.to_s.to_slug.normalize(transliterations: :russian).to_s]
+     [id.to_s, title.to_s.to_slug.normalize(transliterations: :russian).to_s]
     ]
   end
-
-
 
  def update_slug
     unless slug.include? self.id.to_s
@@ -45,13 +48,9 @@ extend FriendlyId
     end
   end
 
-
-
-
-
-	 def self.search(search)
+	def self.search(search)
     if search
-      where('title LIKE ?', "%#{search}%")
+      where('lower(title) LIKE ?', "%#{search.downcase}%")
     else
      Virtualtour.all
     end

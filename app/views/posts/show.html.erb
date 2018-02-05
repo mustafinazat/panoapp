@@ -12,14 +12,9 @@
 
 
 
-                 <div class="col-5 col-sm-6 col-md-8 col-lg-8">
+                 <div class="col-8 col-sm-8 col-md-8 col-lg-10">
                     <h3 class="mt-4 mb-3"><%= title @post.title %></h3></div>
-                <div class="col-3 col-sm-2 col-lg-2 d-flex justify-content-around align-items-center align-content-center">
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" id="littleplanet"> Label</label>
-                    </div>
-                </div>
+
                 <% if policy(@post).update? %>
                 <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1 align-items-baseline">
 
@@ -46,86 +41,112 @@
 
 
 
-
-
-
   <% unless @post.panoramas.empty? %>
   <% @post.panoramas.each do |panorama| %>
 
-  <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+  <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
     <div class="thumbnail">
 
 
 <span style="display:none"><%= imageoriginal(panorama) %></span>
  <img src=" <%= imagethumb(panorama) %>" onclick="OpenPanorama(this)" >
-  <%= link_to "ССылка", panorama ,  data: { params: "type=10"} %>
- <a data-remote="true"  data-url= <%= panorama_url %> data-params="type=pano" data-method="get">Обычная</a>
-     <a data-remote="true"  data-url= <%= panorama_url %> data-params="type=littilepl" data-method="get">Little Planet</a>
+
+        <a class="text-right iframelink" style="display: none;" data-toggle="modal" data-target="#exampleModal" data-panourl="'<%=polymorphic_url(panorama) %>'">   <i class="fa fa-external-link " aria-hidden="true" style="color: #007bff" ></i>
+        </a>
+
+
    </div>
  </div>
 
 
   <% end %>
 <% end %>
-
-
-
-
-
-
-
-
-
-                        </div>
+                 </div>
                     </div>
-
-
-
-
-
-
+ </div>
+ <div class="col-md-4 col-lg-3">
+   <br>
+                  <div class="d-flex justify-content-around">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" id="littleplanet" style="display:none" onchange="changecolor(this)"> <i id="globe" class="fa fa-globe fa-2x" style="color:#gray;" aria-hidden="true"></i></label>
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" id="shareiframe" style="display:none"> <i id="iframe" class="fa fa-external-link fa-2x" style="color:#gray;" aria-hidden="true"></i></label>
                 </div>
 
+<hr >
 
-
-
-
-
-
-                <div class="col-md-4 col-lg-3 d-none d-sm-none d-md-block">
-
-
-
-
-<p>Автор: <%= link_to @post.user.email, @post.user %> </p>
+                  <div class="d-flex justify-content-between">
+                    <small> <i class="fa fa-user-o" aria-hidden="true"> </i> <%= link_to @post.user.nickname, @post.user %></small>
+                    <small> <i class="fa fa-calendar" aria-hidden="true"> </i> <%= @post.created_at.strftime( "%d.%m.%Y")%></small>
+                  </div>
+<hr>
+                  <%= raw @post.tags.map(&:name).map{ |t| link_to "#"+ t, tag_path(t), class: 'badge badge-primary' }.join(' ') %>
+                  <hr>
 <p>
   <%= @post.description %>
-</p>
-
-
-
-                </div>
-
+</p> </div>
 </div>
 
-
-
-
-    <div id="panorama-container">
-
+<div id="panorama-container">
       <!-- Progress bar -->
       <div id="progress_bar"></div>
-
       <!-- Close button -->
       <div class="closepano">
-        <i>&times;</i>
+        <i class="fa fa-times"></i>
       </div>
-
       <!-- Main container -->
       <div id="main-container">
-        
-      </div>
+          </div>
     </div>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Вставка кода</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <code class="iframecode">
+
+                </code>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <script>
+
+
+            $('#exampleModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var url = button.data('panourl') // Extract info from data-* attributes
+                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                var modal = $(this)
+                modal.find('.iframecode').text('<iframe src='+url+' height="300" width="100%"></iframe>')
+
+            })
+
+            var shareiframe = document.getElementById('shareiframe');
+            shareiframe.onchange = function() {
+                changecolor(this);
+                var links = document.getElementsByClassName("iframelink");
+                for(var i = 0; i < links.length; i++)
+                {  if (shareiframe.checked){links[i].style.display = "block";} else {  links[i].style.display = "none";}   }
+            };
+        function changecolor(obj){
+           var ch_obj = obj.nextElementSibling;
+if (obj.checked){ ch_obj.style.color="#17a2b8"}  else { ch_obj.style.color="gray"}
+        }
+        </script>
 
 <%= javascript_include_tag "three.min" %>
 <%= javascript_include_tag "panolens.min"%>
@@ -220,11 +241,3 @@ viewer = null;
 
 
 
-
-
-
-
-
-
-
-<%= link_to 'Back', posts_path %>

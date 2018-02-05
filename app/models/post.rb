@@ -1,13 +1,20 @@
 class Post < ApplicationRecord
 
 	after_commit :update_slug, on: :create
+  before_save :default_values
 	belongs_to :user
 	has_many :panoramas, as: :parentlink , :dependent => :destroy
   has_many :taggings
   has_many :tags, through: :taggings , :dependent => :destroy
-  
+  validates :title, presence: { :message => " должно быть заполнено"}, length: { minimum: 5 }
+
+  scope :closed, -> { where(closed: true) }
+  scope :opened, -> { where(closed: false) }
 
 
+  def default_values
+    self.closed ||= false if self.closed.nil?
+  end
 
 def all_tags
  self.tags.map(&:name).join(', ')
@@ -25,7 +32,6 @@ extend FriendlyId
  friendly_id :slug_candidates, use: :slugged
  def slug_candidates
     [
-      
       [id.to_s, title.to_s.to_slug.normalize(transliterations: :russian).to_s]
     ]
   end
@@ -48,7 +54,6 @@ extend FriendlyId
      Post.all
     end
   end
-
-
 end
+
 

@@ -1,11 +1,18 @@
- <% breadcrumb :article, @article %>
+<% set_meta_tags description: 'Member login page.',
+                 keywords: 'Site, Login, Members', reverse: true,
+                 og: { title: @article.title, image: request.protocol + request.host + @article.picture.url(:medium) }
+%>
+
+
+
+<% breadcrumb :article, @article %>
  <div class="row">
 
 
                   <div class="col-8 col-sm-8 col-md-10 col-lg-10">
                     <h3 class="mt-4 mb-3"><%= title @article.title %></h3></div>
 
-
+   <% if policy(@article).update? %>
                 <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1 align-items-baseline">
 
                     <%= link_to edit_article_path(@article) , class: 'btn btn-info' do %>
@@ -18,22 +25,16 @@
  <i class="fa fa-remove"></i>
  <% end %> 
 
-
-                
-                  
                 </div>
+   <% end %>
 
 
-
-               <div class="col-md-8 col-lg-9">
+   <div class="col-md-8 col-lg-9">
  <%= image_tag @article.picture.url(:medium), class: "img-fluid d-flex m-auto" %>
 
           <hr>
 
-          <!-- Date/Time -->
-          <p>Posted on January 1, 2017 at 12:00 PM</p>
 
-          <hr>
 
          <%=@article.description.html_safe %>
           
@@ -42,16 +43,17 @@
         </div>
 
 
-                        <div class="col-md-4 col-lg-3 d-none d-sm-none d-md-block">
-                <%= raw Tag.all.map(&:name).map{ |t| link_to t, tag_path(t), class: 'badge badge-primary' }.join(' ') %>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent consectetur elementum libero, quis sagittis lacus maximus sit amet. Nulla pulvinar at augue quis hendrerit. Suspendisse sed odio ultricies, malesuada ipsum et, accumsan
-                        odio. Integer finibus eu metus sed tincidunt. Maecenas nunc quam, feugiat vel lectus at, porta vestibulum libero. Duis imperdiet tortor non mi ornare, in tincidunt felis imperdiet. Praesent ullamcorper aliquam lectus viverra varius.
-                        Nulla facilisi. Aliquam in porta eros. Praesent a vehicula metus. </p>
+                        <div class="col-md-4 col-lg-3 ">
+                          <div class="d-flex justify-content-between">
+                            <small> <i class="fa fa-user-o" aria-hidden="true"> </i> <%= link_to @article.user.nickname, @article.user %></small>
+                            <small> <i class="fa fa-calendar" aria-hidden="true"> </i> <%= @article.created_at.strftime( "%d.%m.%Y")%></small>
+                          </div>
+                          <hr>
+                          <%= raw @article.tags.map(&:name).map{ |t| link_to "#"+ t, tag_path(t), class: 'badge badge-primary' }.join(' ') %>
+                          <hr>
                 </div>
 
 
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Back', articles_path %>
 
         </div>
 

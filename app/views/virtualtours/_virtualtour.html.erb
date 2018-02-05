@@ -6,12 +6,16 @@
 
  <img src=" <%= virtualtour.panoramas.first.image.url(:thumb) %>" >
 
-         <div class="caption">
-            <h3><%= virtualtour.title %> от</h3>
-            <h4><%= virtualtour.user.nickname %></h4>
-            </div>
-             <%= raw virtualtour.tags.map(&:name).map{ |t| link_to t, tag_path(t), class: 'badge badge-primary' }.join(' ') %>
- <% end %>
+          <div class="caption">
+            <h3><%= virtualtour.title %></h3>
+          </div>
+          <%= raw virtualtour.tags.map(&:name).map{ |t| link_to "#"+ t, tag_path(t), class: 'badge badge-primary' }.join(' ') %>
+      <% end %>
+
+      <div class="d-flex justify-content-between">
+        <small> <i class="fa fa-user-o" aria-hidden="true"> </i><%= link_to virtualtour.user.nickname, virtualtour.user %></small>
+        <small> <i class="fa fa-calendar" aria-hidden="true"> </i><%= virtualtour.created_at.strftime( "%d.%m.%Y")%></small>
+      </div>
 
 	 </div>
  </div>

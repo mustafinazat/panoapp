@@ -11,7 +11,10 @@
     </div>
     <div id="collapse<%= faq.id %>" class="collapse" role="tabpanel" aria-labelledby="heading<%= faq.id %>">
       <div class="card-body">
-<%= faq.answer %>
+<%= faq.answer.html_safe %>
+
       </div>
     </div>
   </div>
+
+

@@ -6,6 +6,18 @@ end
    link "Посты", posts_path
  end
 
+crumb :about do
+  link "О сервисе", '/about'
+end
+
+crumb :tag do |tag|
+  link "#"+tag.name, tag_path
+end
+
+crumb :faq do
+  link "FAQ", faqs_path
+end
+
  crumb :post do |post|
    link post.title, post_path
    parent :posts
@@ -46,7 +58,9 @@ end
 
    crumb :articles do
    link "Статьи", articles_path
- end
+   end
+
+
 
  crumb :article do |article|
    link article.title, article_path
@@ -62,7 +76,8 @@ end
   crumb :articlenew do |article|
    link "Создать", new_article_path
    parent :articles, article
- end
+  end
+
 
 
 # crumb :projects do

@@ -1,6 +1,8 @@
 toolbar:
-  - styleselect | bold italic | undo redo | image | media |link
+  - styleselect | bold italic | undo redo | image | media | link | code
 plugins:
   - image
   - link
   - media
+  - code
+extended_valid_elements: 'script, script[charset|defer|async|language|src|type]'

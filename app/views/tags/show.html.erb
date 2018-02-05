@@ -1,33 +1,23 @@
-<h1> <%= @tag.name %></h1>
-
-
+<% breadcrumb :tag, @tag %>
+<h3>Найденное по тегу #<%= @tag.name %></h3>
                 <div class="row">
-
-
                 <div class="col-md-8 col-lg-9">
                     <div class="tz-gallery">
                         <div class="row" id="posts">
    <%= render @tag.posts %>
-
                         </div>
-
                          <div class="row" id="virtualtours">
-
     <%= render @tag.virtualtours %>
-  
-                        </div>
-
+                          </div>
                          <div class="row" id="articles">
-
       <%= render @tag.articles %>
                         </div>
                     </div>
-
                 </div>
-
                 <div class="col-md-4 col-lg-3 d-none d-sm-none d-md-block">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent consectetur elementum libero, quis sagittis lacus maximus sit amet. Nulla pulvinar at augue quis hendrerit. Suspendisse sed odio ultricies, malesuada ipsum et, accumsan
                         odio. Integer finibus eu metus sed tincidunt. Maecenas nunc quam, feugiat vel lectus at, porta vestibulum libero. Duis imperdiet tortor non mi ornare, in tincidunt felis imperdiet. Praesent ullamcorper aliquam lectus viverra varius.
                         Nulla facilisi. Aliquam in porta eros. Praesent a vehicula metus. </p>
                 </div>
 
+                </div>

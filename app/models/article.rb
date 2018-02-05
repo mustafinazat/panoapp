@@ -4,7 +4,7 @@ class Article < ApplicationRecord
 	belongs_to :user
 	has_many :taggings
   has_many :tags, through: :taggings , :dependent => :destroy
-
+  validates :title, presence: { :message => " должно быть заполнено"}
 
   has_attached_file :picture, :styles => { :large => "1000x1000>", :medium => "700x700>", :thumb => "200x200>" }, default_url: "/images/missing_avatar.jpg"
   validates_attachment :picture, :content_type => { :content_type => "image/jpeg", :message => "Only JPEG formats allowed" }

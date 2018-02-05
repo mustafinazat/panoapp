@@ -15,10 +15,15 @@
         <%= form.label :title,  "Название" ,  class: "mr-sm-2"%>
          <%= form.text_field :title, id: :post_title , placeholder: "Название", class: "form-control"%>
     </div>
+
+    <div class="form-group">
+      <%= form.label :shortdesc,  "Краткое описание" ,  class: "mr-sm-2"%>
+      <%= form.text_area :shortdesc, :rows => 2, placeholder: "Краткое описание", class: "form-control" %>
+    </div>
+
     <div class="form-group">
             <%= form.label :description,  "Описание" ,  class: "mr-sm-2"%>
-         
-         <%= form.text_area :description, :class => "tinymce", :rows => 10, :cols => 120 %>
+            <%= form.text_area :description, :class => "tinymce", :rows => 10, :cols => 120 %>
     </div>
           <div class="form-group">
        <%= form.label :description,  "Теги" ,  class: "mr-sm-2"%>

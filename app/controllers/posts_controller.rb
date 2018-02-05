@@ -6,8 +6,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.paginate(page: params[:page], per_page: 9).order("created_at desc").search(params[:search])    
-
+      @posts = Post.paginate(page: params[:page], per_page: 9).order("created_at desc").opened.search(params[:search])
   end
   # GET /posts/1
   # GET /posts/1.json
@@ -38,7 +37,7 @@ class PostsController < ApplicationController
 
    if !params[:post][:vk_album_id].empty?
           # The magic is here ;)
-vk = VkontakteApi::Client.new(session[:token]) 
+vk = VkontakteApi::Client.new(session[:token])
 
 @photos = vk.photos.get(owner_id: params[:post][:vk_owner_id], album_id: params[:post][:vk_album_id]);
 @photos.each { |image|
@@ -83,15 +82,19 @@ vk = VkontakteApi::Client.new(session[:token])
   def update
      authorize @post, :update?
     respond_to do |format|
+      begin
       if @post.update(post_params)
 
 
-         if params[:images]
-          # The magic is here ;)
-          params[:images].each { |image|
-            @post.panoramas.create(image: image)
-          }
-        end
+
+
+          if params[:images]
+            # The magic is here ;)
+            params[:images].each { |image|
+              @post.panoramas.create(image: image)
+            }
+          end
+
 
         
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
@@ -100,6 +103,14 @@ vk = VkontakteApi::Client.new(session[:token])
         format.html { render :edit }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
+
+
+      rescue
+        flash[:alert] = "Vk album problem"
+        format.html { render :edit }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
+
     end
   end
 
@@ -121,6 +132,6 @@ vk = VkontakteApi::Client.new(session[:token])
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :description, :vk_owner_id, :vk_album_id,:slug, :all_tags)
+      params.require(:post).permit(:title, :description, :vk_owner_id, :vk_album_id,:slug, :all_tags, :closed)
     end
 end

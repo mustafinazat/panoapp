@@ -5,12 +5,17 @@ class PostPolicy < ApplicationPolicy
     end
   end
 
+
+  def new?
+    return true if  user.present?
+  end
+
   def update?
-   return true if  user.present? && user == post.user
+   return true if  user.present? && user == post.user || user.present? && user.admin?
   end
 
   def edit?
-   return true if  user.present? && user == post.user
+   return true if  user.present? && user == post.user || user.present? && user.admin?
   end
 
 

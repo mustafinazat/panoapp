@@ -1,11 +1,10 @@
 class VirtualtoursController < ApplicationController
-    before_action :authenticate_user!, only: [:create, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :destroy]
   before_action :set_virtualtour, only: [:show, :edit, :update, :destroy]
-
   # GET /virtualtours
   # GET /virtualtours.json
   def index
-  @virtualtours = Virtualtour.paginate(page: params[:page], per_page: 6).order("created_at desc").search(params[:search])    
+  @virtualtours = Virtualtour.paginate(page: params[:page], per_page: 6).order("created_at desc").opened.search(params[:search])
   end
 
   # GET /virtualtours/1
@@ -17,7 +16,6 @@ class VirtualtoursController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @virtualtour }
     end
-
   end
 
   # GET /virtualtours/new
@@ -27,13 +25,13 @@ class VirtualtoursController < ApplicationController
 
   # GET /virtualtours/1/edit
   def edit
+    authorize @virtualtour;
   end
 
   # POST /virtualtours
   # POST /virtualtours.json
   def create
     @virtualtour = current_user.virtualtours.new(virtualtour_params)
-
     respond_to do |format|
       if @virtualtour.save
 
@@ -43,7 +41,6 @@ class VirtualtoursController < ApplicationController
             @virtualtour.panoramas.create(image: image)
           }
         end
-
         format.html { redirect_to @virtualtour, notice: 'Virtualtour was successfully created.' }
         format.json { render :show, status: :created, location: @virtualtour }
       else
@@ -56,10 +53,9 @@ class VirtualtoursController < ApplicationController
   # PATCH/PUT /virtualtours/1
   # PATCH/PUT /virtualtours/1.json
   def update
+    authorize @virtualtour, :update?
     respond_to do |format|
       if @virtualtour.update(virtualtour_params)
-
-
 
         if params[:images]
           # The magic is here ;)
@@ -67,7 +63,6 @@ class VirtualtoursController < ApplicationController
             @virtualtour.panoramas.create(image: image)
           }
         end
-
 
         format.html { redirect_to @virtualtour, notice: 'Virtualtour was successfully updated.' }
         format.json { render :show, status: :ok, location: @virtualtour }
@@ -96,6 +91,6 @@ class VirtualtoursController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def virtualtour_params
-      params.require(:virtualtour).permit(:title, :description, :connections, :slug, :allv_tags)
+      params.require(:virtualtour).permit(:title, :description, :connections, :slug, :all_tags, :closed)
     end
 end

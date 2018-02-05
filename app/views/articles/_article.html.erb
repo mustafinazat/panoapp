@@ -8,13 +8,15 @@
             </div>
             <div class="col-lg-6">
               <h2 class="card-title"><%=article.title %></h2>
-              <%=article.description.html_safe %>
+              <p><%= article.shortdesc %></p>
+
+
               <%= link_to "Читать", article , class: "btn btn-primary"%>
             </div>
           </div>
         </div>
-        <div class="card-footer text-muted">
-          Posted on January 1, 2017 by
-          <%= link_to article.user.nickname, article.user %>
+        <div class="card-footer text-muted d-flex justify-content-between">
+          <span> <i class="fa fa-calendar" aria-hidden="true"></i> <%= article.created_at.strftime( "%d.%m.%Y")%> </span> <span><i class="fa fa-user-o" aria-hidden="true"> </i>
+          <%= link_to article.user.nickname, article.user  %></span>
         </div>
       </div>
