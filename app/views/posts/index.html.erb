@@ -35,8 +35,9 @@
                 <div class="col-md-4 col-lg-3">
 
                   <h3>Теги</h3>
-                <%= raw Tag.all.map(&:name).map{ |t| link_to "#"+ t, tag_path(t), class: 'badge badge-primary' }.join(' ') %>
-<hr>
+                  <%= raw Tag.joins(:posts).uniq.map(&:name).map{ |t| link_to "#"+t, tag_path(t), class: 'badge badge-primary' }.join(' ') %>
+
+                  <hr>
                 </div>
 
 

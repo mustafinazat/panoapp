@@ -88,14 +88,29 @@
 </div>
 
 <div id="panorama-container">
+
       <!-- Progress bar -->
       <div id="progress_bar"></div>
+
+  <div class="banter-loader" id="preloader">
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+  </div>
+
       <!-- Close button -->
       <div class="closepano">
         <i class="fa fa-times"></i>
       </div>
       <!-- Main container -->
       <div id="main-container">
+
           </div>
     </div>
 
@@ -158,6 +173,7 @@ if (obj.checked){ ch_obj.style.color="#17a2b8"}  else { ch_obj.style.color="gray
 
  var panoramaContainer, mainContainer, closeButton,  viewer, panorama,progressBar, progress;
       panoramaContainer = document.getElementById( 'panorama-container' );
+           var  preloader = document.getElementById( 'preloader');
       mainContainer = document.getElementById( 'main-container');
       progressBar = document.getElementById( 'progress_bar' );
       closeButton = panoramaContainer.querySelector( '.closepano' );
@@ -181,7 +197,11 @@ if (obj.checked){ ch_obj.style.color="#17a2b8"}  else { ch_obj.style.color="gray
              panorama.addEventListener( 'progress', function ( event ) {
              progress = event.progress.loaded / event.progress.total * 100;
              progressBar.style.width = progress + '%';
+            progressBar.style.position = "fixed";
+            progressBar.style.opacity = 1;
+            preloader.style.display = "block";
              if ( progress === 100 ) {
+            preloader.style.display = "none";
              progressBar.style.opacity = 0;
               }
 
@@ -205,7 +225,7 @@ if (obj.checked){ ch_obj.style.color="#17a2b8"}  else { ch_obj.style.color="gray
 
         panorama.dispose();
         viewer.remove( panorama );
-        panorama = null;
+        //panorama = null;
 
       };
 
@@ -223,9 +243,10 @@ viewer = null;
 
         // Dispose panorama when close
         closeButton.addEventListener( 'click', function () {
-
+if (panorama.loaded == true) {
           disposePanorama();
-          disposeViewer();
+}
+            disposeViewer();
           progressBar.style.width = 0;
           progressBar.style.opacity = 1;
           panoramaContainer.classList.remove( 'open' );

@@ -1,0 +1,41 @@
+
+<% breadcrumb :posts, @posts %>
+<style>
+  .pagination {
+
+
+    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+  .pagination ul
+  {
+    display:flex;
+  }
+
+</style>
+<h3>Виртуальные11 туры пользователя <%= @user.nickname %></h3>
+                <div class="row">
+
+                  <div class="col-md-8 col-lg-9">
+                    <div class="tz-gallery">
+                        <div class="row">
+   <%= render @virtualtours %>
+                        </div>
+                    </div>
+<div id="paginatediv">
+           <%= will_paginate @virtualtours, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+</div>
+
+                </div>
+
+                <div class="col-md-4 col-lg-3">
+
+                  <h3>Теги</h3>
+                <%= raw Tag.all.map(&:name).map{ |t| link_to "#"+ t, tag_path(t), class: 'badge badge-primary' }.join(' ') %>
+<hr>
+                </div>
+
+
+
+</div>

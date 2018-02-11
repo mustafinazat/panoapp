@@ -1,3 +1,5 @@
+
+
 class Post < ApplicationRecord
 
 	after_commit :update_slug, on: :create
@@ -6,6 +8,8 @@ class Post < ApplicationRecord
 	has_many :panoramas, as: :parentlink , :dependent => :destroy
   has_many :taggings
   has_many :tags, through: :taggings , :dependent => :destroy
+
+
   validates :title, presence: { :message => " должно быть заполнено"}, length: { minimum: 5 }
 
   scope :closed, -> { where(closed: true) }

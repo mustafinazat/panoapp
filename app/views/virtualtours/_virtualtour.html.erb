@@ -1,4 +1,4 @@
-  <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+  <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
     <div class="thumbnail">
 
 
@@ -13,8 +13,8 @@
       <% end %>
 
       <div class="d-flex justify-content-between">
-        <small> <i class="fa fa-user-o" aria-hidden="true"> </i><%= link_to virtualtour.user.nickname, virtualtour.user %></small>
-        <small> <i class="fa fa-calendar" aria-hidden="true"> </i><%= virtualtour.created_at.strftime( "%d.%m.%Y")%></small>
+        <small> <i class="fa fa-user-o" aria-hidden="true"> </i> <%= link_to virtualtour.user.nickname, virtualtour.user %></small>
+        <small> <i class="fa fa-calendar" aria-hidden="true"> </i> <%= virtualtour.created_at.strftime( "%d.%m.%Y")%></small>
       </div>
 
 	 </div>

@@ -10,6 +10,10 @@ crumb :about do
   link "О сервисе", '/about'
 end
 
+crumb :tags do
+  link "Теги", tags_path
+end
+
 crumb :tag do |tag|
   link "#"+tag.name, tag_path
 end
@@ -17,6 +21,36 @@ end
 crumb :faq do
   link "FAQ", faqs_path
 end
+
+crumb :sign_in do
+  link "Войти", new_user_session_path
+end
+
+crumb :sign_up do
+  link "Регистрация", new_user_registration_path
+end
+
+crumb :new_password do
+  link "Забыли пароль?",  new_user_password_path
+end
+
+crumb :edit_password do
+  link "Изменить пароль",  edit_user_password_path
+end
+
+crumb :new_confirmation do
+  link "Не получили подтверждения?", new_user_confirmation_path
+end
+
+crumb :user do |user|
+  link user.nickname, user_path
+end
+
+crumb :useredit do
+  link "Редактирование профиля "+ resource.nickname, edit_user_registration_path
+
+end
+
 
  crumb :post do |post|
    link post.title, post_path

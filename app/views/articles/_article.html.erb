@@ -2,16 +2,16 @@
         <div class="card-body">
           <div class="row">
             <div class="col-lg-6">
-          
-              <%= image_tag article.picture.url(:medium), class: "img-fluid  rounded d-flex m-auto" %>
-             
-            </div>
-            <div class="col-lg-6">
-              <h2 class="card-title"><%=article.title %></h2>
+                  <%= image_tag article.picture.url(:medium), class: "img-fluid  rounded d-flex m-auto" %>
+                  </div>
+            <div class=" col-lg-6">
+              <h4 class="card-title"><%=article.title %></h4>
+
               <p><%= article.shortdesc %></p>
+               <%= raw article.tags.map(&:name).map{ |t| link_to "#"+ t, tag_path(t), class: 'badge badge-primary' }.join(' ') %>
 
-
-              <%= link_to "Читать", article , class: "btn btn-primary"%>
+              <hr>
+              <%= link_to "Читать далее", article , class: "btn btn-outline-primary text-center"%>
             </div>
           </div>
         </div>

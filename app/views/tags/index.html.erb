@@ -1,2 +1,40 @@
- <div id="tags">
-   <%= raw @tags.map(&:name).map{ |t| link_to t, tag_path(t), remote: true, data: { method: "delete" }, class: 'badge badge-primary' }.join(' ') %></div>
+<% breadcrumb :tags %>
+
+
+<div class="row">
+  <div class="col-md-4 col-lg-3">
+    <h3>Теги</h3>
+    Тут собраны все теги
+    <hr>
+    <input class="form-control" id="myInput" type="text" placeholder="Поиск..">
+    <hr>
+
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#tags a").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
+
+  </div>
+  <div class="col-md-8 col-lg-9">
+
+   <div id="tags">
+    <h4>Посты</h4>
+   <%= raw @tags.joins(:posts).uniq.map(&:name).map{ |t| link_to "#"+t, tag_path(t),  class: 'badge badge-primary' }.join(' ') %>
+   <hr>
+   <h4>Виртуальные туры</h4>
+   <%= raw @tags.joins(:virtualtours).uniq.map(&:name).map{ |t| link_to "#"+t, tag_path(t),  class: 'badge badge-primary' }.join(' ') %>
+   <hr>
+   <h4>Статьи</h4>
+   <%= raw @tags.joins(:articles).uniq.map(&:name).map{ |t| link_to "#"+t, tag_path(t),  class: 'badge badge-primary' }.join(' ') %>
+
+ </div>
+  </div>
+</div>
+

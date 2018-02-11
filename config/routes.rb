@@ -10,6 +10,12 @@ Rails.application.routes.draw do
    match '/about', to: 'pages#about', via: [:get]
  devise_for :users  #,   controllers: { omniauth_callbacks: "authentication" }
  resources :users, :only => [:show]
+  resources :users do
+    resources :posts,  :only => [:index], to: 'posts#userposts'
+  end
+  resources :users do
+    resources :virtualtours,  :only => [:index],  to: 'virtualtours#uservts'
+  end
   resources :tags, :only => [:show,:index, :destroy]
  root 'posts#index'
 

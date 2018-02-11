@@ -5,7 +5,6 @@ class PostPolicy < ApplicationPolicy
     end
   end
 
-
   def new?
     return true if  user.present?
   end
@@ -17,7 +16,6 @@ class PostPolicy < ApplicationPolicy
   def edit?
    return true if  user.present? && user == post.user || user.present? && user.admin?
   end
-
 
    private
  

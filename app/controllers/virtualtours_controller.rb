@@ -7,6 +7,10 @@ class VirtualtoursController < ApplicationController
   @virtualtours = Virtualtour.paginate(page: params[:page], per_page: 6).order("created_at desc").opened.search(params[:search])
   end
 
+  def uservts
+    @user = User.friendly.find(params[:user_id]);
+    @virtualtours = @user.virtualtours.paginate(page: params[:page], per_page: 9).order("created_at desc").opened
+  end
   # GET /virtualtours/1
   # GET /virtualtours/1.json
   def show

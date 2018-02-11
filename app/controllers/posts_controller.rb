@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-      @posts = Post.paginate(page: params[:page], per_page: 9).order("created_at desc").opened.search(params[:search])
+     @posts = Post.paginate(page: params[:page], per_page: 9).order("created_at desc").opened.search(params[:search])
   end
   # GET /posts/1
   # GET /posts/1.json
@@ -25,13 +25,26 @@ class PostsController < ApplicationController
   def edit
     authorize @post;
   end
+
+
+  def userposts
+    @user = User.friendly.find(params[:user_id]);
+    @posts = @user.posts.paginate(page: params[:page], per_page: 9).order("created_at desc").opened
+  end
+
+
   # POST /posts
   # POST /posts.json
   def create
+
     @post = current_user.posts.new(post_params)
+
     respond_to do |format|
 
+
+       if params[:images] || !params[:post][:vk_album_id].empty?
       begin
+
       if @post.save
 
 
@@ -42,11 +55,10 @@ vk = VkontakteApi::Client.new(session[:token])
 @photos = vk.photos.get(owner_id: params[:post][:vk_owner_id], album_id: params[:post][:vk_album_id]);
 @photos.each { |image|
 
-          @post.panoramas.create(image_file_name: image.src_xxbig, image_file_name_thumb: image.src_xbig )
+          @post.panoramas.create(image_file_name: image.src_xxxbig, image_file_name_thumb: image.src_xbig )
           }
 
         else    
-
 
          if params[:images]
           # The magic is here ;)
@@ -74,8 +86,17 @@ vk = VkontakteApi::Client.new(session[:token])
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
 
+
+
+       else
+         flash[:alert] = "Нужны панорамы"
+         format.html { render :new }
+         format.json { render json: @post.errors, status: :unprocessable_entity }
+
+       end
+
     end #respond do
-  end   #def
+   end   #def
 
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
@@ -84,10 +105,6 @@ vk = VkontakteApi::Client.new(session[:token])
     respond_to do |format|
       begin
       if @post.update(post_params)
-
-
-
-
           if params[:images]
             # The magic is here ;)
             params[:images].each { |image|
@@ -95,8 +112,6 @@ vk = VkontakteApi::Client.new(session[:token])
             }
           end
 
-
-        
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
       else
@@ -117,6 +132,7 @@ vk = VkontakteApi::Client.new(session[:token])
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
+    authorize @post, :update?
     @post.destroy
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
@@ -135,3 +151,6 @@ vk = VkontakteApi::Client.new(session[:token])
       params.require(:post).permit(:title, :description, :vk_owner_id, :vk_album_id,:slug, :all_tags, :closed)
     end
 end
+
+
+

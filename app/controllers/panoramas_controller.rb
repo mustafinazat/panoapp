@@ -82,12 +82,21 @@ class PanoramasController < ApplicationController
     #@gallery = Gallery.find(params[:gallery_id])
     #@picture = @gallery.pictures.find(params[:id])
     @panorama = Panorama.find(params[:id])
+    if @panorama.parentlink.panoramas.count != 1
     @panorama.destroy
 
     respond_to do |format|
       format.html { redirect_to  request.referrer }
       format.js
     end
+
+    else
+      flash[:alert] = "Нельзя удалить. Нужно оставить хотя б одну панораму!!!"
+      respond_to do |format|
+        format.html { redirect_to  request.referrer }
+        format.js
+      end
+end
   end
 
   private

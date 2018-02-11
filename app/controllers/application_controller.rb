@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     flash[:alert] = "Нет прав доступа"
-    redirect_to(root_path)
+    redirect_to  request.referrer
   end
 
 
@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
    protected
 
   def configure_devise_permitted_parameters
-    registration_params = [:nickname,:avatar, :email, :password, :password_confirmation]
+    registration_params = [:nickname,:description,:email, :password, :password_confirmation, :slug]
 
     if params[:action] == 'update'
       devise_parameter_sanitizer.permit(:account_update) do 

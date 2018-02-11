@@ -2,21 +2,18 @@
 Тут будет страница about
 
 
-<script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
+<script src="https://vk.com/js/api/openapi.js?152" type="text/javascript"></script>
+<script type="text/javascript">
+    VK.init({
+        apiId: 5823627
+    });
 
 
-<div id='vrview'></div>
+    VK.Api.call('photos.get', {owner_id: 86088367, album_id: 159184965},  function(r) {
+        if(r.response) {
+            console.log(r.response);
+        }
+    });
 
-
-<script>
-    window.addEventListener('load', onVrViewLoad)
-    function onVrViewLoad() {
-        var vrView = new VRView.Player('#vrview', {
-            width: '100%',
-            height: 300,
-            preview: 'https://pp.userapi.com/c306508/v306508367/24d/JbTXp8Rmd-E.jpg',
-            image: 'https://pp.userapi.com/c306508/v306508367/24d/JbTXp8Rmd-E.jpg',
-            is_stereo: true
-        });
-    }
 </script>
+

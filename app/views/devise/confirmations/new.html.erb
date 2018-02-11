@@ -1,16 +1,36 @@
-<h2>Resend confirmation instructions</h2>
 
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
+<% breadcrumb :new_confirmation %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+<div class="row">
+  <div class="col-lg-12">
+    <h3 class="mt-4 mb-3">Повторно отправить инструкции по подтверждению</h3>
+
+  </div>
+  <div class="col-md-8 col-lg-9">
+
+
+    <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+        <%= devise_error_messages! %>
+
+        <div class="form-group">
+            <%= f.email_field :email, autofocus: true, placeholder: "Email", class: "form-control",  value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+        </div>
+
+
+
+        <div class="form-group">
+          <%= f.submit "Отправить", class: "btn btn-primary btn-block" %>
+        </div>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
+
+
   </div>
 
-  <div class="actions">
-    <%= f.submit "Resend confirmation instructions" %>
+  <div class="col-md-4 col-lg-3 ">
+    <p>На почту придет письмо с дальнейшими инструкциями</p>
   </div>
-<% end %>
 
-<%= render "devise/shared/links" %>
+
+</div>

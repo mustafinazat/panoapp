@@ -8,30 +8,16 @@
         overflow: hidden;
         background-color: #000;
       }
-
     </style>
-
-
-  
 </head>
-
-
 <body>
-     <%= javascript_include_tag "three.min" %>
+<%= javascript_include_tag "three.min" %>
 <%= javascript_include_tag "panolens.min"%>
-
  <%= javascript_tag do %>
-
- var panorama, viewer;   
- 
-   panorama = new PANOLENS.ImagePanorama( "<%= imageoriginal(@panorama) %> " );   
-   
-
-
-    viewer = new PANOLENS.Viewer();   
-    viewer.add( panorama ); 
-
+ var panorama, viewer;
+   panorama = new PANOLENS.ImagePanorama( "<%= imageoriginal(@panorama) %> " );
+   viewer = new PANOLENS.Viewer();
+   viewer.add( panorama );
 <% end %>
-
 </body>
 </html>

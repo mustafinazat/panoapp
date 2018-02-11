@@ -115,6 +115,8 @@
 <%= javascript_include_tag "three.min" %>
 <%= javascript_include_tag "panolens.min.newvt"%>
 
+<script src="https://vk.com/js/api/openapi.js?152" type="text/javascript"></script>
+
 
     <%= javascript_tag do %>
 var listofconns= document.getElementById("listOfConn");
@@ -176,21 +178,7 @@ mainContainer = document.getElementById( 'main-container');
 
        setupPanolens();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                panorama = new PANOLENS.ImagePanorama(panourl);
+panorama = new PANOLENS.ImagePanorama(panourl);
 
                  infospot = new PANOLENS.Infospot( 350, PANOLENS.DataImage.Info );
                panorama.addEventListener( 'progress', function ( event ) {
@@ -202,13 +190,6 @@ mainContainer = document.getElementById( 'main-container');
             } );
             viewer.add( panorama );
             panoramaContainer.classList.add( 'open' );
-
-
-
-
-
-
-
 
 
 
@@ -230,12 +211,6 @@ mainContainer = document.getElementById( 'main-container');
                         this.outputDivElement.textContent = i.x + ", " + i.y + ", " + i.z
                 }
             };
-
-
- 
-
-
-
 
           };
          function setupPanolens () {
@@ -272,29 +247,9 @@ viewer.OUTPUT_INFOSPOT = 1;
 
       };
 
-
-  
-
-      
-
-
       function init () {
-
-
-
-
-
-
-
-
-
-                      mainContainer.addEventListener( 'click', function () {
-
-
-//outputViewer();
-
-
-        }, false );
+       mainContainer.addEventListener( 'click', function () {
+}, false );
 
 
 
@@ -314,57 +269,76 @@ viewer.OUTPUT_INFOSPOT = 1;
       init();
 
 
+    function load_photos()
+    {
+    VK.init({
+    apiId: 5823627
+    });
+
+    var vk_owner_id = document.getElementById("vk_owner_id").value;
+   var vk_album_id = document.getElementById("vk_album_id").value;
+
+    VK.Api.call('photos.get', {owner_id: vk_owner_id, album_id: vk_album_id},  function(r) {
+    if(r.response) {
+    console.log(r.response);
+
+    load_photos_to_swiper(r.response, "vk")
+
+ }
+    });
+
+
+    }
 
 
 
+    function load_photos_to_swiper(array, type)
+    {
+
+    var output = document.getElementsByClassName('swiper-wrapper');
+    var files = array;
+    if (!files.length) {
+    output[0].innerHTML = "";
+    output[1].innerHTML ="";
+    } else {
+    output[0].innerHTML = "";
+    output[1].innerHTML ="";
+
+    for (var i = 0; i < files.length; i++) {
+    var div = document.createElement("div");
+    div.classList.add("d-flex", "justify-content-around", "swiper-slide");
+    div.style.height = "30vh";
+    var img = document.createElement("img");
+    if (type =="vk"){   img.src = files[i].src_xxxbig;}
+    if (type =="files"){ img.src = window.URL.createObjectURL(files[i]);}
+    img.classList.add("img-fluid");
+    div.appendChild(img);
+    var info = document.createElement("h4");
+    info.innerHTML = "Панорама "+ (i+1);
+    div.appendChild(info);
+
+    output[0].appendChild(div);
+    }
 
 
+    output[1].innerHTML =  output[0].innerHTML;
 
 
+    var mySwiper = new Swiper ('.swiper-container', {
+    loop: true,
+    pagination: '.swiper-pagination',
+    paginationClickable: true,
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev'
+    });
+    }
+
+    }
 
 
 
 function handleFiles(e) {
-var output = document.getElementsByClassName('swiper-wrapper');
-var files = e.target.files;
-  if (!files.length) {
-    output[0].innerHTML = "";
-    output[1].innerHTML ="";
-  } else {
-     output[0].innerHTML = "";
-    output[1].innerHTML ="";
-
-   
-    for (var i = 0; i < files.length; i++) {
-   var div = document.createElement("div");
-    div.classList.add("d-flex", "justify-content-around", "swiper-slide");
-     div.style.height = "30vh";
-      var img = document.createElement("img");
-      img.src = window.URL.createObjectURL(files[i]);
-      img.classList.add("img-fluid");
-      img.onload = function() {
-       // window.URL.revokeObjectURL(this.src);
-      }
-      div.appendChild(img);
-      var info = document.createElement("h4");
-      info.innerHTML = "Панорама "+ (i+1);
-      div.appendChild(info);
-
-       output[0].appendChild(div);
-    }
-
-
-       output[1].innerHTML =  output[0].innerHTML;
-
-
-              var mySwiper = new Swiper ('.swiper-container', {
-        loop: true,
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev'
-    });
-  }
+    load_photos_to_swiper(e.target.files, "files")
 }
 
 

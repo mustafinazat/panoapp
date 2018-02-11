@@ -6,6 +6,9 @@ ru:
       virtualtour: "Виртуальный тур"
       post: "Пост"
     attributes:
+      user:
+        nickname: "Логин"
+        description: "Описание"
       post:
         title: "Название"
         description: "Описание"
