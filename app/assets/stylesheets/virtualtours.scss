@@ -17,14 +17,15 @@
 }
 
 .deleteitem {
-    position: absolute;
+
     right: 0;
     top: 0;
-    padding: 10px 12px 10px 12px;
+
 }
 
 .deleteitem:hover {
-    background-color: #f44336;
+  cursor: pointer;
+  background-color: #f44336;
     color: white;
 }
 

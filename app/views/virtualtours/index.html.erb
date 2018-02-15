@@ -1,4 +1,10 @@
-               <% breadcrumb :virtualtours, @virtualtours %>
+<% set_meta_tags title: "Виртуальные туры ", description: "Виртуальные туры на i360.cam",
+                 reverse: true,
+          og: { title: "Виртуальные туры | i360.cam", image: request.protocol + request.host + ((!@virtualtours.empty?)?@virtualtours.first.panoramas.first.image.url(:thumb):"" ) }
+
+%>
+
+              <% breadcrumb :virtualtours, @virtualtours %>
                 <div class="row">
                 <div class="col-9 col-md-8 col-lg-9 col-xl-9 d-flex justify-content-between align-content-around navigation-clean-search">
                <%= form_with url: virtualtours_path, :class => 'form-inline', id: "virtualtours_search",  method: :get, html: { style: "width:100%" }  do |form| %>

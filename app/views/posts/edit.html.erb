@@ -1,3 +1,7 @@
+<% set_meta_tags title: "Редактирование поста ", description: "Редактирование поста на i360.cam",
+                 reverse: true,
+                 og: { title: "Редактирование поста | i360.cam" }
+%>
 <% breadcrumb :postedit, @post %>
 
 <h1>Редактирование</h1>
@@ -14,9 +18,7 @@
   <% unless @post.panoramas.empty? %>
   <% @post.panoramas.each do |panorama| %>
 
-
-
-  <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
     <div class="thumbnail">
 
 
@@ -34,8 +36,8 @@
 
     </div>
       </div>
-      <%= link_to 'Show', @post %> |
-<%= link_to 'Back', posts_path %>
+      <%= link_to 'К посту', @post %> |
+<%= link_to 'К постам', posts_path %>
         </div>
      
 

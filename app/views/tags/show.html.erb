@@ -1,3 +1,7 @@
+<% set_meta_tags title: @tag.name, description: "Найденное по тегу #"+ @tag.name,
+                 reverse: true
+%>
+
 <% breadcrumb :tag, @tag %>
 <h3>Найденное по тегу #<%= @tag.name %></h3>
                 <div class="row">

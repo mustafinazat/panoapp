@@ -1,4 +1,7 @@
-
+<% set_meta_tags title: "Посты "+@user.nickname, description: "Посты "+@user.nickname+" на i360.cam",
+                 reverse: true,
+                 og: { title: "Посты "+@user.nickname+" | i360.cam", image: request.protocol + request.host + ((!@posts.empty?)?@posts.first.panoramas.first.image.url(:thumb):"" ) }
+%>
 <% breadcrumb :posts, @posts %>
 <style>
   .pagination {
@@ -32,8 +35,15 @@
                 <div class="col-md-4 col-lg-3">
 
                   <h3>Теги</h3>
-                <%= raw Tag.all.map(&:name).map{ |t| link_to "#"+ t, tag_path(t), class: 'badge badge-primary' }.join(' ') %>
+
 <hr>
+
+
+                  <% @posts.map do |post| %>
+                  <%=raw post.tags.uniq.map( &:name ).map {|t| link_to "#"+ t, tag_path(t), class: 'badge badge-primary'}.join(' ')%>
+                  <% end %>
+
+
                 </div>
 
 

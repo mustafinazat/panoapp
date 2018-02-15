@@ -11,6 +11,7 @@ class Post < ApplicationRecord
 
 
   validates :title, presence: { :message => " должно быть заполнено"}, length: { minimum: 5 }
+  validates :description, presence: { :message => " должно быть заполнено"}, length: { minimum: 22, maximum: 140  }
 
   scope :closed, -> { where(closed: true) }
   scope :opened, -> { where(closed: false) }

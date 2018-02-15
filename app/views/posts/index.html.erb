@@ -1,13 +1,17 @@
-
+<% set_meta_tags title: "Посты ", description: "Посты, публикации на i360.cam",
+                  reverse: true,
+                 og: { title: "Посты | i360.cam", image: request.protocol + request.host + ((!@posts.empty?)?@posts.first.panoramas.first.image.url(:thumb):"" ) }
+%>
 <% breadcrumb :posts, @posts %>
 
                 <div class="row">
-                <div class="col-9 col-md-8 col-lg-9 col-xl-9 d-flex justify-content-between align-content-around navigation-clean-search">
-               <%= form_with url: posts_path, :class => 'form-inline', id: "posts_search",  method: :get, html: { style: "width:100%" }  do |form| %>
-                                     <div class="form-group d-flex flex-row justify-content-center align-items-baseline" style="width:100%;">
-                                     <label for="search_field" style="width:10%;"><i class="fa fa-search"></i></label>
-                                       <%= form.text_field :search, id: "search_field" , placeholder: "Начните вводить", class: "form-control form-control-lg d-block", style: "width:90%"
-                                %>
+                                       <div class="col-9 col-md-8 col-lg-9 col-xl-9 d-flex justify-content-between align-content-around navigation-clean-search">
+                                         <%= form_with url: posts_path, :class => 'form-inline', id: "posts_search",  method: :get, html: { style: "width:100%" }  do |form| %>
+                                             <div class="form-group d-flex flex-row justify-content-center align-items-baseline" style="width:100%;">
+                                               <label for="search_field" style="width:10%;"><i class="fa fa-search"></i></label>
+                                               <%= form.text_field :search, id: "search_field" , placeholder: "Начните вводить", class: "form-control form-control-lg d-block", style: "width:90%"
+                                               %>
+
     </div>
 <% end %>
                 </div>

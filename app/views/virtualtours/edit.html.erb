@@ -1,24 +1,165 @@
+<% set_meta_tags title: "Редактирование виртуального тура ", description: "Редактирование виртуального тура на i360.cam",
+                 reverse: true,
+                 og: { title: "Редактирование виртуального тура | i360.cam" }
 
-<h1>Editing Post</h1>
-<div class="container">
-<%= render 'form', virtualtour: @virtualtour %>
+%>
+<% breadcrumb :virtualtouredit, @virtualtour %>
+
+<%= javascript_include_tag "aos" %>
+<%= javascript_include_tag "swiper.jquery.min" %>
+<%= javascript_include_tag "Simple-Slider" %>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h3 class="mt-4 mb-3">Редактирование виртуального тура</h3>
+  </div>
+  <div class="col-md-8 col-lg-9">
+
+    <%= render 'form', virtualtour: @virtualtour %>
+    <%= link_to 'Back', virtualtours_path %>
+
+    <h3 class="text-center">Создание точек перехода</h3>
+
+  </div>
+  <div class="col">
+    <p>Какие то инструкции</p>
+  </div>
+
+
+
+
 </div>
 
-<h1>Удалить панорамы (клик по панораме)</h1>
-  <div id="gallery-container">
-  <% unless @virtualtour.panoramas.empty? %>
-  <% @virtualtour.panoramas.each do |panorama| %>
-  <%= link_to panorama, data: { confirm: "Are you sure?", method: "delete" } do %>
- <img class="photo" src=" <%= panorama.image.url(:thumb) %>" >
- <h1>&times;</h1>
-  <% end %>
-  <% end %>
-<% end %>
 
+  <div class="row">
+    <div class="col-lg-7 col-xl-7">
+      <div class="row">
+
+    <div class="col-lg-7 col-xl-7 simple-slider">
+      <h4 class="text-center mt-4 mb-3">1. Выбор панорамы (откуда)</h4>
+      <div class="swiper-container">
+        <div class="swiper-wrapper" id="pano1">
+
+
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+    <div class="col-lg-5 col-xl-5">
+      <h4 class="text-center mt-4 mb-3">2. Выбор точки</h4>
+      <div class="form-group"><small class="form-text text-muted">Ввердите текст</small>
+        <input type="text" id="infospot-text" class="form-control"/>
+      </div>
+
+      <div class="form-group">
+        <textarea  class="form-control coords" /></textarea>
+      </div>
+
+
+      <a class="btn btn-primary" role="button" onclick="OpenPanorama()">Выбрать точку</a></div>
+    <div class="col-lg-7 col-xl-7 simple-slider">
+      <h4 class="text-center mt-4 mb-3">3. Выбор панорамы (куда)</h4>
+      <div class="swiper-container">
+        <div class="swiper-wrapper" id="pano2">
+
+        </div>
+
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-5 col-xl-5">
+      <h4 class="text-center mt-4 mb-3">4. Добавление в список</h4>
+      <button class="btn btn-primary" type="button" onclick="addToList()">Добавить </button>
+    </div>
+    </div>
+    </div>
+    <div class="col-lg-5 col-xl-5">
+
+      <div class="col-sm-12">
+        <h3 class="text-center">Точки перехода</h3>
+        <table class="table table-bordered table-sm" id="conns_table">
+          <thead>
+          <tr>
+            <th>Панорама (откуда)</th>
+            <th>Коорд</th>
+            <th>Подпись</th>
+            <th>Панорама (куда)</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody id="conns_table_tbody">
+
+          </tbody>
+        </table>
+      </div>
 
 
     </div>
 
 
-<%= link_to 'Show', @virtualtour %> |
-<%= link_to 'Back', virtualtours_path %>
+  </div>
+
+
+
+
+<div id="panorama-container">
+
+  <!-- Progress bar -->
+  <div id="progress_bar"></div>
+
+  <!-- Close button -->
+  <div class="closepano">
+    <i>&times;</i>
+  </div>
+
+  <!-- Main container -->
+  <div id="main-container">
+
+  </div>
+</div>
+
+
+
+<div id="myModal" class="modal">
+  <div class="loader"></div>
+
+</div>
+
+<div id="panorama-container">
+
+  <!-- Progress bar -->
+  <div id="progress_bar"></div>
+
+  <!-- Close button -->
+  <div class="closepano">
+    <i>&times;</i>
+  </div>
+
+  <!-- Main container -->
+  <div id="main-container">
+
+  </div>
+</div>
+
+<%= javascript_include_tag "three.min" %>
+<%= javascript_include_tag "panolens.min.newvt"%>
+<%= javascript_include_tag "virtualtouredit"%>
+
+<%= link_to 'К туру', @virtualtour %> |
+<%= link_to 'К турам', virtualtours_path %>
+
+
+
+
+<%= javascript_tag do %>
+
+var array = <%= raw @virtualtour.panoramas.map{ |pic| pic.image.url }.to_json  %>
+    console.log(array);
+    load_photos_to_swiper(array, "erb")
+<%end%>

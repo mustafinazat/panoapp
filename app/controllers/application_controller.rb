@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     flash[:alert] = "Нет прав доступа"
-    redirect_to  request.referrer
+    redirect_to  request.referrer || root_path
   end
 
 

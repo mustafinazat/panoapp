@@ -17,8 +17,7 @@ def index
       format.json { render json: @faq.errors, status: :unprocessable_entity }
     end
   end
-end
-
+  end
 
 
   def destroy

@@ -42,23 +42,12 @@ class PostsController < ApplicationController
     respond_to do |format|
 
 
-       if params[:images] || !params[:post][:vk_album_id].empty?
-      begin
+       if params[:images]
+
 
       if @post.save
 
 
-   if !params[:post][:vk_album_id].empty?
-          # The magic is here ;)
-vk = VkontakteApi::Client.new(session[:token])
-
-@photos = vk.photos.get(owner_id: params[:post][:vk_owner_id], album_id: params[:post][:vk_album_id]);
-@photos.each { |image|
-
-          @post.panoramas.create(image_file_name: image.src_xxxbig, image_file_name_thumb: image.src_xbig )
-          }
-
-        else    
 
          if params[:images]
           # The magic is here ;)
@@ -66,9 +55,6 @@ vk = VkontakteApi::Client.new(session[:token])
             @post.panoramas.create(image: image)
           }
         end
-      end
-        
-
 
 
        format.html { redirect_to @post, notice: 'Post was successfully created.' }
@@ -78,15 +64,6 @@ vk = VkontakteApi::Client.new(session[:token])
         format.json { render json: @post.errors, status: :unprocessable_entity }
 
       end #if post save
-
-
-    rescue
-         flash[:alert] = "Vk album problem"
-        format.html { render :new }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
-
-
 
        else
          flash[:alert] = "Нужны панорамы"
@@ -103,7 +80,7 @@ vk = VkontakteApi::Client.new(session[:token])
   def update
      authorize @post, :update?
     respond_to do |format|
-      begin
+
       if @post.update(post_params)
           if params[:images]
             # The magic is here ;)
@@ -115,13 +92,6 @@ vk = VkontakteApi::Client.new(session[:token])
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
       else
-        format.html { render :edit }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
-
-
-      rescue
-        flash[:alert] = "Vk album problem"
         format.html { render :edit }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
@@ -148,7 +118,7 @@ vk = VkontakteApi::Client.new(session[:token])
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :description, :vk_owner_id, :vk_album_id,:slug, :all_tags, :closed)
+      params.require(:post).permit(:title, :description,:slug, :all_tags, :closed)
     end
 end
 

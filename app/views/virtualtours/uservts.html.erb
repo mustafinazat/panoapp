@@ -1,0 +1,49 @@
+<% set_meta_tags title: "Виртуальные туры "+@user.nickname, description: "Виртуальные туры "+@user.nickname+" на i360.cam",
+                 reverse: true,
+                 og: { title: "Виртуальные туры "+@user.nickname+" | i360.cam", image: request.protocol + request.host + ((!@virtualtours.empty?)?@virtualtours.first.panoramas.first.image.url(:thumb):"" ) }
+%>
+
+
+
+<% breadcrumb :virtualtours, @virtualtours %>
+<style>
+  .pagination {
+
+
+    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+  .pagination ul
+  {
+    display:flex;
+  }
+
+</style>
+<h3>Виртуальные туры пользователя <%= @user.nickname %></h3>
+                <div class="row">
+
+                  <div class="col-md-8 col-lg-9">
+                    <div class="tz-gallery">
+                        <div class="row">
+   <%= render @virtualtours %>
+                        </div>
+                    </div>
+<div id="paginatediv">
+           <%= will_paginate @virtualtours, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+</div>
+
+                </div>
+
+                <div class="col-md-4 col-lg-3">
+
+                  <h3>Теги</h3>
+                  <% @virtualtours.map do |vt| %>
+                      <%=raw vt.tags.uniq.map( &:name ).map {|t| link_to "#"+ t, tag_path(t), class: 'badge badge-primary'}.join(' ')%>
+                  <% end %>
+<hr>
+                </div>
+
+
+
+</div>

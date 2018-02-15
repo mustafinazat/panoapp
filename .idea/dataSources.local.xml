@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="panodb_dev@localhost" uuid="52775b8f-7373-4e3f-be77-2fcf7fd26e2b">
-      <database-info product="PostgreSQL" version="9.3.20" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.1.1">
-        <identifier-quote-string>&quot;</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+    <data-source name="panodb_dev@localhost" uuid="a5b5b37c-fd11-4111-abea-a0799f356f23">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
       <secret-storage>master_key</secret-storage>
+      <first-sync>true</first-sync>
       <user-name>pguser</user-name>
-      <introspection-schemas>panodb_dev:public</introspection-schemas>
     </data-source>
   </component>
 </project>

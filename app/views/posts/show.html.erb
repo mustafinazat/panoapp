@@ -1,18 +1,14 @@
 
-
-        <% set_meta_tags description: 'Member login page.',
-                 keywords: 'Site, Login, Members', reverse: true
-    %>
+<% set_meta_tags description: @post.description,
+                 keywords: @post.tags.map(&:name).map{|t| t}, reverse: true,
+                 og: { title: @post.title, image: request.protocol + request.host + @post.panoramas.first.image.url(:thumb) }
+%>
 
          <% breadcrumb :post, @post %>
 
 
                 <div class="row">
-
-
-
-
-                 <div class="col-8 col-sm-8 col-md-8 col-lg-10">
+            <div class="col-8 col-sm-8 col-md-8 col-lg-10">
                     <h3 class="mt-4 mb-3"><%= title @post.title %></h3></div>
 
                 <% if policy(@post).update? %>
@@ -84,7 +80,42 @@
                   <hr>
 <p>
   <%= @post.description %>
-</p> </div>
+</p>
+ <hr>
+ </div>
+
+                    <div class="col-md-8 col-lg-9 text-center">
+
+
+                      <button class="btn btn-outline-primary text-center" type="button" data-toggle="collapse" data-target="#comments" aria-expanded="false" aria-controls="collapseExample">
+                       Развернуть комментарии
+                      </button>
+
+
+                      <div class="collapse" id="comments">
+                        <br>
+                        <div class="card card-body">
+                          <!-- Put this script tag to the <head> of your page -->
+                          <script type="text/javascript" src="//vk.com/js/api/openapi.js?152"></script>
+
+                          <script type="text/javascript">
+                              VK.init({apiId: 5823627, onlyWidgets: true});
+                          </script>
+
+                          <!-- Put this div tag to the place, where the Comments block will be -->
+                          <div id="vk_comments" ></div>
+                          <script type="text/javascript">
+                              VK.Widgets.Comments("vk_comments", {limit: 10, attach: "*"});
+                          </script>
+
+                        </div>
+                      </div>
+
+
+
+                  </div>
+
+
 </div>
 
 <div id="panorama-container">

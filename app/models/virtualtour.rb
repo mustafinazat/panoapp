@@ -6,9 +6,10 @@ class Virtualtour < ApplicationRecord
   before_save :default_values
 	has_many :panoramas, as: :parentlink , :dependent => :destroy
 	has_many :taggings
-  has_many :tags, through: :taggings
-  validates :title, presence: { :message => " должно быть заполнено"}
+  has_many :tags, through: :taggings, :dependent => :destroy
 
+  validates :title, presence: { :message => " должно быть заполнено"}
+  validates :description, presence: { :message => " должно быть заполнено"}, length: { minimum: 22, maximum: 200}
 
 
   scope :closed, -> { where(closed: true) }

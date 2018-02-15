@@ -1,14 +1,18 @@
+<% set_meta_tags title: "Создать новый пост ", description: "Создать новый пост на i360.cam",
+                 reverse: true,
+                 og: { title: "Создать новый пост | i360.cam" }
+%>
 <% breadcrumb :postnew, @post %>
 
                 <div class="row">
                 <div class="col-lg-12">
-                    <h3 class="mt-4 mb-3">Создать новый пост</h3>
-					
+    <h3 class="mt-4 mb-3">Создать новый пост</h3>
+
 				</div>
                 <div class="col-md-8 col-lg-9">
 					<%= render 'form', post: @post %>
 
-					<%= link_to 'Back', posts_path %>
+					<%= link_to 'К постам', posts_path %>
                 </div>
 
                 <div class="col-md-4 col-lg-3">
