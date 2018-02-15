@@ -9,88 +9,105 @@
 <%= javascript_include_tag "swiper.jquery.min" %>
 <%= javascript_include_tag "Simple-Slider" %>
 
+
+
+
+
 <div class="row">
-    <div class="col-lg-12">
-        <h3 class="mt-4 mb-3">Создать новый виртуальный тур</h3></div>
-    <div class="col-md-8 col-lg-9">
+  <div class="col-lg-12">
+    <h3 class="mt-4 mb-3">Создание виртуального тура</h3>
+  </div>
+  <div class="col-md-8 col-lg-9">
 
-                    <%= render 'form', virtualtour: @virtualtour %>
-                    <%= link_to 'Back', virtualtours_path %>
+    <%= render 'form', virtualtour: @virtualtour %>
+    <%= link_to 'Back', virtualtours_path %>
 
-        <h3 class="text-center">Создание точек перехода</h3>
-        <div class="row">
-            <div class="col-lg-7 col-xl-7 simple-slider">
-                <h4 class="text-center mt-4 mb-3">1. Выбор панорамы (откуда)</h4>
-                <div class="swiper-container">
-                    <div class="swiper-wrapper" id="pano1">
-<div class="swiper-slide" style="background-image: url(&quot;https://placeholdit.imgix.net/~text?txtsize=68&amp;txt=Slideshow+Image&amp;w=1920&amp;h=500&quot;);"></div>
+    <h3 class="text-center">Создание точек перехода</h3>
 
-                    </div>
-                    <div class="swiper-pagination"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                </div>
-            </div>
-            <div class="col-lg-5 col-xl-5">
-                <h4 class="text-center mt-4 mb-3">2. Выбор точки</h4>
-                <div class="form-group"><small class="form-text text-muted">Ввердите текст</small>
-                    <input type="text" id="infospot-text" class="form-control"/>
-                </div>
-
-                    <div class="form-group">
-                    <textarea  class="form-control coords" /></textarea>
-                </div>
+  </div>
+  <div class="col">
+    <p>Какие то инструкции</p>
+  </div>
 
 
-                <a class="btn btn-primary" role="button" onclick="OpenPanorama()">Выбрать точку</a></div>
-            <div class="col-lg-7 col-xl-7 simple-slider">
-                <h4 class="text-center mt-4 mb-3">3. Выбор панорамы (куда)</h4>
-                <div class="swiper-container">
-                    <div class="swiper-wrapper" id="pano2">
-                    <div class="swiper-slide" style="background-image: url(&quot;https://placeholdit.imgix.net/~text?txtsize=68&amp;txt=Slideshow+Image&amp;w=1920&amp;h=500&quot;);"></div>
-                     </div>
 
-                    <div class="swiper-pagination"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                    </div>
-                    
-                </div>
-           
-            <div class="col-lg-4 col-xl-4">
-                <h4 class="text-center mt-4 mb-3">4. Добавление в список</h4>
-                <button class="btn btn-primary" type="button" onclick="addToList()">Добавить </button>
-            </div>
-            <div class="col-sm-12">
-                <h3 class="text-center">Точки перехода</h3>
-                <ul class="list-group" id="listOfConn">
 
-                </ul>
-            </div>
-
-        </div>
-    </div>
-    <div class="col">
-        <p>Какие то инструкции</p>
-    </div>
 </div>
 
 
-    <div id="panorama-container">
+<div class="row">
+  <div class="col-lg-7 col-xl-7">
+    <div class="row">
 
-      <!-- Progress bar -->
-      <div id="progress_bar"></div>
+      <div class="col-lg-7 col-xl-7 simple-slider">
+        <h4 class="text-center mt-4 mb-3">1. Выбор панорамы (откуда)</h4>
+        <div class="swiper-container">
+          <div class="swiper-wrapper" id="pano1">
 
-      <!-- Close button -->
-      <div class="closepano">
-        <i>&times;</i>
+
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+      </div>
+      <div class="col-lg-5 col-xl-5">
+        <h4 class="text-center mt-4 mb-3">2. Выбор точки</h4>
+        <div class="form-group"><small class="form-text text-muted">Ввердите текст</small>
+          <input type="text" id="infospot-text" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+          <textarea  class="form-control coords" /></textarea>
+        </div>
+
+
+        <a class="btn btn-primary" role="button" onclick="OpenPanorama()">Выбрать точку</a></div>
+      <div class="col-lg-7 col-xl-7 simple-slider">
+        <h4 class="text-center mt-4 mb-3">3. Выбор панорамы (куда)</h4>
+        <div class="swiper-container">
+          <div class="swiper-wrapper" id="pano2">
+
+          </div>
+
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+
       </div>
 
-      <!-- Main container -->
-      <div id="main-container">
-        
+      <div class="col-lg-5 col-xl-5">
+        <h4 class="text-center mt-4 mb-3">4. Добавление в список</h4>
+        <button class="btn btn-primary" type="button" onclick="addToList()">Добавить </button>
       </div>
     </div>
+  </div>
+  <div class="col-lg-5 col-xl-5">
+
+    <div class="col-sm-12">
+      <h3 class="text-center">Точки перехода</h3>
+      <table class="table table-bordered table-sm" id="conns_table">
+        <thead>
+        <tr>
+          <th>Панорама (откуда)</th>
+          <th>Коорд</th>
+          <th>Подпись</th>
+          <th>Панорама (куда)</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody id="conns_table_tbody">
+
+        </tbody>
+      </table>
+    </div>
+
+
+  </div>
+
+
+</div>
 
 
 

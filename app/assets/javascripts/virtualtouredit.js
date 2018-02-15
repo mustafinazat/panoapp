@@ -6,6 +6,7 @@ var tbody = document.getElementById("conns_table_tbody");
 var textarea = document.getElementById("virtualtour_connections");
 var close = document.getElementsByClassName("deleteitem");
 create_table();
+
 function create_table()
 {
 

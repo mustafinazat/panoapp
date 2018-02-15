@@ -1,32 +1,41 @@
+
+
+
 /**
  * Created by 1 on 13.02.2018.
  */
 
-var listofconns= document.getElementById("listOfConn");
+var tbody = document.getElementById("conns_table_tbody");
 var textarea = document.getElementById("virtualtour_connections");
+var close = document.getElementsByClassName("deleteitem");
+
 function addToList() {
-    var h4first = $('#pano1 > .swiper-slide-active > h4');
-    var panofirst = h4first[0].innerText;
-    var ConnectionDotCoord = $('.coords');
-    var coords = ConnectionDotCoord[0].value;
-    var infospotText = document.getElementById("infospot-text").value;
-    var h4second = $('#pano2 > .swiper-slide-active > h4');
-    var panosecond = h4second[0].innerText;
-    var allparts = "Панорама " +panofirst.replace(/\D+/g,"") +";"+coords+";"+infospotText+"; Панорама "+panosecond.replace(/\D+/g,"");
-    var elemoflist = document.createElement('li');
-    elemoflist.className = 'list-group-item';
-    elemoflist.innerHTML = allparts;
-    var span = document.createElement("SPAN");
-    var txt = document.createTextNode("\u00D7");
+    var connect_arr=[];
+
+    connect_arr[0] = $('#pano1 > .swiper-slide-active > h4')[0].innerText.replace(/Панорама/g,"");
+    connect_arr[1] = $('.coords')[0].value;
+    connect_arr[2] = $('#infospot-text')[0].value;
+    connect_arr[3] = $('#pano2 > .swiper-slide-active > h4')[0].innerText.replace(/Панорама/g,"");
+    var elemoflist = document.createElement('tr');
+    for (var i=0; i<connect_arr.length;i++)
+    {
+        var th = document.createElement('th');
+        th.textContent = connect_arr[i];
+        elemoflist.appendChild(th);
+    }
+
+    var span = document.createElement("th");
+    var txt = document.createElement("i");
+    txt.className ="fa fa-times";
     span.className = "deleteitem";
     span.appendChild(txt);
     elemoflist.appendChild(span);
+    tbody.appendChild(elemoflist);
 
-    listofconns.appendChild(elemoflist);
     for (var i = 0; i < close.length; i++) {
         close[i].onclick = function() {
-            var li = this.parentElement;
-            li.parentElement.removeChild(li);
+            var tr = this.parentElement;
+            tr.parentElement.removeChild(tr);
             updateTextarea();
         }
     }
@@ -35,16 +44,26 @@ function addToList() {
 
 function updateTextarea()
 {
+
     textarea.textContent="";
-    var elems = listofconns.childNodes;
-    for(var i=1; i<elems.length; i++)
+    var elems = tbody.querySelectorAll("tr");
+    console.log(elems);
+
+    for(var i=0; i<elems.length; i++)
     {
-        var elem = elems[i].childNodes[0].data;
-        textarea.textContent+=((~elem.indexOf("Панорама"))? elem.replace(/Панорама/g,"") : elem)   +'/';
+        var th = elems[i].querySelectorAll("th");
+        console.log(th);
+        var elem_str="";
+        for (var j=0; j<th.length-1;j++)
+        {
+
+            var th_val = th[j].textContent;
+            elem_str+=th_val+";";
+        }
+        textarea.textContent+=((~elem_str.indexOf("Панорама"))? elem_str.replace(/Панорама/g,"") : elem_str)+'/';
     }
-//textarea.textContent = textarea.textContent.replace(/\s+/g, '');
 }
-var close = document.getElementsByClassName("deleteitem");
+
 
 var panoramaContainer, mainContainer, closeButton,  viewer, panorama,progressBar, progress;
 panoramaContainer = document.getElementById( 'panorama-container' );
@@ -135,10 +154,6 @@ function init () {
     }, false );
 
 
-
-
-
-
     // Dispose panorama when close
     closeButton.addEventListener( 'click', function () {
         disposePanorama();
@@ -158,6 +173,8 @@ function load_photos_to_swiper(array, type)
 {
 
     var output = document.getElementsByClassName('swiper-wrapper');
+    var counter = output[0].querySelectorAll(".swiper-slide").length-2;
+    console.log(counter);
     var files = array;
     if (!files.length) {
         output[0].innerHTML = "";
@@ -167,16 +184,20 @@ function load_photos_to_swiper(array, type)
         output[1].innerHTML ="";
 
         for (var i = 0; i < files.length; i++) {
+
             var div = document.createElement("div");
             div.classList.add("d-flex", "justify-content-around", "swiper-slide");
             div.style.height = "30vh";
             var img = document.createElement("img");
+            if (type =="erb"){   img.src = files[i]}
             if (type =="vk"){   img.src = files[i].src_xxxbig;}
             if (type =="files"){ img.src = window.URL.createObjectURL(files[i]);}
             img.classList.add("img-fluid");
             div.appendChild(img);
             var info = document.createElement("h4");
-            info.innerHTML = "Панорама "+ (i+1);
+            if (type =="erb"){   info.innerHTML = "Панорама "+ (i+1);}
+            if (type =="files"){  info.innerHTML = "Панорама "+ (i+1);}
+
             div.appendChild(info);
 
             output[0].appendChild(div);
@@ -196,6 +217,8 @@ function load_photos_to_swiper(array, type)
     }
 
 }
+
+
 
 
 
