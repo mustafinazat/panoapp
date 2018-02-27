@@ -1,0 +1,1 @@
+tinymce.init({ selector:'textarea.tinymce', toolbar: 'styleselect | bold italic | undo redo | image | media | link | code' , plugins:'image link media code',  extended_valid_elements: '*[*]' });

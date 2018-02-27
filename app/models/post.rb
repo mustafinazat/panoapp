@@ -10,6 +10,7 @@ class Post < ApplicationRecord
   has_many :tags, through: :taggings , :dependent => :destroy
 
 
+
   validates :title, presence: { :message => " должно быть заполнено"}, length: { minimum: 5 }
   validates :description, presence: { :message => " должно быть заполнено"}, length: { minimum: 22, maximum: 140  }
 

@@ -116,7 +116,7 @@ function OpenPanorama () {
 
 };
 function setupPanolens () {
-    viewer = new PANOLENS.Viewer( { container: mainContainer, output: 'fortour' , autoHideInfospot: false } );
+    viewer = new PANOLENS.Viewer( { container: mainContainer, output: 'fortour' , autoHideInfospot: false , autoHideControlBar: true} );
     viewer.OUTPUT_INFOSPOT = 1;
 
 

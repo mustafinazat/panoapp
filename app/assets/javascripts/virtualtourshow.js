@@ -76,7 +76,7 @@ PANOLENS.Panorama.prototype.link = function ( pano, position, imageScale, imageS
 
 var virtualtourtourContainer;
 virtualtourtourContainer = document.getElementById( 'virtualtour-container' );
-var  viewer = new PANOLENS.Viewer({ container: virtualtourtourContainer, autoHideInfospot: true});
+var  viewer = new PANOLENS.Viewer({ container: virtualtourtourContainer, autoHideInfospot: true,  autoHideControlBar: true });
 
 
 
@@ -84,7 +84,9 @@ function progresspreleloader(event)
 {
     {
         progress = event.progress.loaded / event.progress.total * 100;
+        progressBar.style.opacity = 1;
         progressBar.style.width = progress + '%';
+
         preloader.style.display = "block";
         if ( progress === 100 ) {
             preloader.style.display = "none";

@@ -1,0 +1,56 @@
+
+<div id="virtualtour-container">
+  <div id="progress_bar"></div>
+  <div class="banter-loader" id="preloader">
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+  </div>
+</div>
+
+<%= javascript_include_tag "three.min" %>
+<%= javascript_include_tag "panolens.min"%>
+<%= javascript_include_tag "virtualtourshow"%>
+
+<%= javascript_tag do %>
+
+
+    <% unless @panoramas.empty? %>
+        <% @panoramas.each_with_index do |pic,index| %>
+            var panorama<%= index+1 %>;
+            panorama<%= index+1 %> = new PANOLENS.ImagePanorama( "<%= pic.image.url %>");
+            panorama<%= index+1 %>.addEventListener( 'progress', function( event )
+            {
+            progresspreleloader(event);
+            } );
+
+            viewer.add(panorama<%= index+1 %>);
+
+        <% end %>
+    <% end %>
+
+    <% unless @connections.empty? %>
+        <% @connections.each do |connection| %>
+            panorama<%= connection.split(';')[0].strip %>.link(panorama<%= connection.split(';')[3].strip %>, new THREE.Vector3( <%= connection.split(';')[1] %> ), 400, PANOLENS.DataImage.Arrow, "<%= connection.split(';')[2] %>" );
+
+        <% end %>
+    <% end %>
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+

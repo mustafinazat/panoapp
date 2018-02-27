@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require turbolinks
 //= require jquery3
 //= require popper
 //= require bootstrap
@@ -22,43 +21,35 @@
 $(function() {
 
 
-// $(function () {
- 
-//   // Search form
-//   $('#virtualtours_search input').keyup(function () {
-//     $.get($('#virtualtours_search').attr('action'), $('#virtualtours_search').serialize(), null, 'script');
-//     return false;
-//   });
-// });
 
 $(function () {
    // Search form
-  $('#posts_search input').keyup(function () {
+  $('#posts_search #search_button').click(function () {
     $.get($('#posts_search').attr('action'), $('#posts_search').serialize(), null, 'script');
     return false;
   });
 });
 
 
+    $(function () {
+        // Search form
+        $('#virtualtours_search #search_button').click(function () {
+            $.get($('#virtualtours_search').attr('action'), $('#virtualtours_search').serialize(), null, 'script');
+            return false;
+        });
+    });
+
+
+
 
 
 $(function () {
    // Search form
-  $('#articles_search input').keyup(function () {
+  $('#articles_search #search_button').click(function () {
     $.get($('#articles_search').attr('action'), $('#articles_search').serialize(), null, 'script');
     return false;
   });
 });
-
-
-
-
-
-
-// $(document).on('click', '.pagination a', function () {
-//      $.getScript(this.href);
-//      return false;
-//   });
 
 
   if ($('.pagination').length && $('#posts').length) {
@@ -83,6 +74,20 @@ $(function () {
    });
    return $(window).scroll();
  }
+
+
+
+    if ($('.pagination').length && $('#virtualtours').length) {
+        $(window).scroll(function() {
+            const url = $('.pagination .next a').attr('href');
+            if (url && ($(window).scrollTop() > ($(document).height() - $(window).height() - 50))) {
+                $('nav.pagination').text('Загрузка туров...');
+                return $.getScript(url);
+            }
+        });
+        return $(window).scroll();
+    }
+
 
 
 });

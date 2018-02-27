@@ -11,13 +11,16 @@ $('#posts').append("<%= j render(@posts) %>");
 <% end %>
 
 
-
 <%else%>
 
 
 <% if params.include?(:search) %>
-
+<% if @posts.count !=0 %>
 $('#posts').html("<%= escape_javascript(render (@posts)) %>");
+<% else%>
+$('#posts').html('<p class="no_results">Ничего не найдено</p>');
+<%end%>
+
 $('#paginatediv').html("<%= j  will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>");
 <% end %>
 

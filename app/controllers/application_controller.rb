@@ -10,10 +10,7 @@ class ApplicationController < ActionController::Base
     redirect_to  request.referrer || root_path
   end
 
-
-
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
-
 
    protected
 

@@ -5,4 +5,4 @@ plugins:
   - link
   - media
   - code
-extended_valid_elements: 'script, script[charset|defer|async|language|src|type]'
+extended_valid_elements: '*[*]'

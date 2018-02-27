@@ -1,17 +1,24 @@
 <% set_meta_tags title: "Виртуальные туры ", description: "Виртуальные туры на i360.cam",
                  reverse: true,
           og: { title: "Виртуальные туры | i360.cam", image: request.protocol + request.host + ((!@virtualtours.empty?)?@virtualtours.first.panoramas.first.image.url(:thumb):"" ) }
-
 %>
 
               <% breadcrumb :virtualtours, @virtualtours %>
                 <div class="row">
-                <div class="col-9 col-md-8 col-lg-9 col-xl-9 d-flex justify-content-between align-content-around navigation-clean-search">
+                  <div class="col col-md-8 col-lg-9 col-xl-9 d-flex justify-content-between align-content-around navigation-clean-search">
                <%= form_with url: virtualtours_path, :class => 'form-inline', id: "virtualtours_search",  method: :get, html: { style: "width:100%" }  do |form| %>
                                      <div class="form-group d-flex flex-row justify-content-center align-items-baseline" style="width:100%;">
                                      <label for="search_field" style="width:10%;"><i class="fa fa-search"></i></label>
-                                       <%= form.text_field :search, id: "search_field" , placeholder: "Начните вводить", class: "form-control form-control-lg d-block", style: "width:90%" 
-                                %>
+
+
+                                       <div class="input-group" style="width:90%">
+                                         <%= form.text_field :search, id: "search_field" , placeholder: "Поиск...", class: "form-control form-control-lg d-block"  %>
+                                         <span class="input-group-btn">
+        <button id="search_button" class="btn btn-primary" type="button">Поиск</button>
+      </span>
+                                       </div>
+
+
     </div>
 <% end %>
                 </div>
@@ -35,7 +42,7 @@
 
                 </div>
 
-                <div class="col-md-4 col-lg-3">
+                  <div class="col-md-4 col-lg-3 col-xl-3">
                   <h3>Теги</h3>
                   <%= raw Tag.joins(:virtualtours).uniq.map(&:name).map{ |t| link_to "#"+t, tag_path(t), class: 'badge badge-primary' }.join(' ') %>
 

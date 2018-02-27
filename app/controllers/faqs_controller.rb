@@ -1,6 +1,6 @@
 class FaqsController < ApplicationController
 def index
-    @faqs = Faq.all
+    @faqs = Faq.all.order("created_at asc")
     @faq = Faq.new
   end
 
@@ -9,7 +9,7 @@ def index
  
   respond_to do |format|
     if @faq.save
-      format.html { redirect_to @faq, notice: 'faq was successfully created.' }
+      format.html { redirect_to @faq, notice: 'FAQ создан' }
       format.js
       format.json { render json: @faq, status: :created, location: @faq}
     else

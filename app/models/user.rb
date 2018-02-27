@@ -29,7 +29,7 @@ class User < ApplicationRecord
 
   extend FriendlyId
 
-  friendly_id :slug_candidates, use: :slugged
+  friendly_id :slug_candidates,:use => [:slugged, :finders]
   def slug_candidates
     [
         [nickname.to_s.to_slug.normalize(transliterations: :russian).to_s]

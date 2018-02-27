@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="panodb_dev@localhost" uuid="a5b5b37c-fd11-4111-abea-a0799f356f23">
+    <data-source name="panodb_dev@localhost" uuid="586a1eef-5e33-4218-84a0-c010d2f92aab">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
       <secret-storage>master_key</secret-storage>
       <first-sync>true</first-sync>

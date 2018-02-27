@@ -57,7 +57,7 @@ class PostsController < ApplicationController
         end
 
 
-       format.html { redirect_to @post, notice: 'Post was successfully created.' }
+       format.html { redirect_to @post, notice: 'Пост создан' }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new }
@@ -89,7 +89,7 @@ class PostsController < ApplicationController
             }
           end
 
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+        format.html { redirect_to @post, notice: 'Пост был изменен' }
         format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit }
@@ -105,7 +105,7 @@ class PostsController < ApplicationController
     authorize @post, :update?
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
+      format.html { redirect_to posts_url, notice: 'Пост удален.' }
       format.json { head :no_content }
     end
   end

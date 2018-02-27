@@ -1,4 +1,35 @@
 
-  
-$('#virtualtours').html('<%= escape_javascript(render (@virtualtours)) %>');
+ <% if (params.include?(:search) and params.include?(:page) )%>
+
+ $('#virtualtours').append("<%= j render(@posts) %>");
+ <% if virtualtours.next_page %>
  $('#paginatediv').html("<%= j  will_paginate @virtualtours, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>");
+ <% else %>
+ $('#paginatediv').html("");
+ <% end %>
+
+ <%else%>
+
+ <% if params.include?(:search) %>
+ <% if @virtualtours.count !=0 %>
+ $('#virtualtours').html("<%= escape_javascript(render (@virtualtours)) %>");
+ <% else%>
+ $('#virtualtours').html('<p class="no_results">Ничего не найдено</p>');
+ <%end%>
+
+ $('#paginatediv').html("<%= j  will_paginate @virtualtours, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>");
+ <% end %>
+
+ <% if params.include?(:page) %>
+ $('#virtualtours').append("<%= j render(@virtualtours) %>");
+ <% if virtualtours.next_page %>
+ $('#paginatediv').html("<%= j  will_paginate @virtualtours, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>");
+ <% else %>
+ $('#paginatediv').html("");
+ <% end %>
+ <% end %>
+ <% end %>
+
+
+
+

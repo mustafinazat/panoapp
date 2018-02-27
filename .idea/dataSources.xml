@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="panodb_dev@localhost" uuid="a5b5b37c-fd11-4111-abea-a0799f356f23">
+    <data-source source="LOCAL" name="panodb_dev@localhost" uuid="586a1eef-5e33-4218-84a0-c010d2f92aab">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>

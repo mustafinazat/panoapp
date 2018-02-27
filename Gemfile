@@ -22,7 +22,7 @@ gem 'therubyracer', platforms: :ruby
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+#gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
@@ -46,6 +46,11 @@ gem 'will_paginate-bootstrap4'
 gem 'friendly_id'
 gem 'babosa'
 gem 'tinymce-rails'
+gem 'activeadmin'
+gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources'
+gem 'arctic_admin'
+
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

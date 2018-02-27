@@ -16,20 +16,19 @@ end
 
 def all_tags=(names)
 
- self.tags = names.split(",").map do |name|
+self.tags = names.split(",").map do |name|
   Tag.where(name: name.strip).first_or_create!
 end
 end
 
 extend FriendlyId
 
- friendly_id :slug_candidates, use: :slugged
+ friendly_id :slug_candidates, use: [:slugged, :finders]
  def slug_candidates
     [
      [id.to_s, title.to_s.to_slug.normalize(transliterations: :russian).to_s]
     ]
   end
-
 
 
  def update_slug

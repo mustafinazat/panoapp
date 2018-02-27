@@ -1,8 +1,8 @@
   <li class="card">
     <div class="card-header" role="tab" id="heading<%= faq.id %>">
       <h5 class="mb-0">
-        <a data-toggle="collapse" href="#<%=faq.id.to_s+"_"+faq.question[0,10] %>" aria-expanded="true" aria-controls="collapse<%= faq.id %>">
-          + <%= faq.question %>
+        <a data-toggle="collapse" href="#<%=faq.id.to_s+'_' %>" aria-expanded="true" aria-controls="collapse<%= faq.id %>">
+           <%= faq.question %>
         </a>
         <%- if (current_user.present? && current_user.admin?) %>
                <%= link_to faq, remote: true, data: { method: "delete" } , class: "faq-link btn btn-danger" do %>
@@ -11,9 +11,9 @@
             <%end%>
         </h5>
     </div>
-    <div id="<%=faq.id.to_s+"_"+faq.question[0,10] %>" class="collapse" role="tabpanel" aria-labelledby="heading<%= faq.id %>">
+    <div id="<%=faq.id.to_s+'_'%>" class="collapse" role="tabpanel" aria-labelledby="heading<%= faq.id %>">
       <div class="card-body">
-<%= faq.answer.html_safe %>
+<%= raw faq.answer %>
       </div>
     </div>
   </li>

@@ -1,8 +1,7 @@
 class VirtualtoursController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :destroy]
-  before_action :set_virtualtour, only: [:show, :edit, :update, :destroy]
-  # GET /virtualtours
-  # GET /virtualtours.json
+  before_action :set_virtualtour, only: [:show, :edit, :update, :destroy, :embed]
+
   def index
   @virtualtours = Virtualtour.paginate(page: params[:page], per_page: 6).order("created_at desc").opened.search(params[:search])
   end
@@ -18,6 +17,15 @@ class VirtualtoursController < ApplicationController
     @connections = @virtualtour.connections.split("/");
     respond_to do |format|
       format.html # show.html.erb
+      format.json { render json: @virtualtour }
+    end
+  end
+
+  def embed
+    @panoramas = @virtualtour.panoramas
+    @connections = @virtualtour.connections.split("/");
+    respond_to do |format|
+      format.html { render layout: "vtembed"}# show.html.erb
       format.json { render json: @virtualtour }
     end
   end
@@ -45,7 +53,7 @@ class VirtualtoursController < ApplicationController
             @virtualtour.panoramas.create(image: image)
           }
         end
-        format.html { redirect_to @virtualtour, notice: 'Virtualtour was successfully created.' }
+        format.html { redirect_to @virtualtour, notice: 'Тур создан' }
         format.json { render :show, status: :created, location: @virtualtour }
       else
         format.html { render :new }
@@ -68,7 +76,7 @@ class VirtualtoursController < ApplicationController
           }
         end
 
-        format.html { redirect_to @virtualtour, notice: 'Virtualtour was successfully updated.' }
+        format.html { redirect_to @virtualtour, notice: 'Тур был изменен' }
         format.json { render :show, status: :ok, location: @virtualtour }
       else
         format.html { render :edit }
@@ -82,7 +90,7 @@ class VirtualtoursController < ApplicationController
   def destroy
     @virtualtour.destroy
     respond_to do |format|
-      format.html { redirect_to virtualtours_url, notice: 'Virtualtour was successfully destroyed.' }
+      format.html { redirect_to virtualtours_url, notice: 'Тур удален' }
       format.json { head :no_content }
     end
   end

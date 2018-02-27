@@ -1,6 +1,6 @@
 class AddShortdesctoUsers < ActiveRecord::Migration[5.1]
   def change
-    change_table :users do |t|
+    change_table :pages do |t|
       t.text :shortdesc
     end
   end

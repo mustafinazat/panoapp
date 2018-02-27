@@ -1,14 +1,12 @@
     <div>
         <nav class="navbar navbar-light navbar-expand-md navigation-clean fixed-top">
-            <div class="container"><a class="navbar-brand" href="/">I360.cam</a>
+            <div class="container"><a class="navbar-brand" href="/">i360.cam</a>
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item" role="presentation"><%= link_to "Посты", posts_path, class: "nav-link"  %></li>
-                        <li class="nav-item" role="presentation">  <%= link_to "Виртуальные туры", virtualtours_path, class: "nav-link"  %></li>
-                         <!--   <li class="nav-item" role="presentation">  <%= link_to "Зайти через VK", '#', class: "nav-link"  %></li> -->
-
-                           <li class="nav-item" role="presentation"><%= link_to "Статьи", articles_path, class: "nav-link"  %></li>
+                      <li class="nav-item" role="presentation"><%= link_to "Посты", posts_path, class: "nav-link"  %></li>
+                      <li class="nav-item" role="presentation">  <%= link_to "Виртуальные туры", virtualtours_path, class: "nav-link"  %></li>
+                      <li class="nav-item" role="presentation"><%= link_to "Статьи", articles_path, class: "nav-link"  %></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="/faqs">FAQ</a></li>
                       <li class="nav-item" role="presentation"><a class="nav-link" href="/about">О проекте</a></li>
  <%- if current_user %>
@@ -20,9 +18,7 @@
  <li class="dropdown"><a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Вход/Регистрация</a>
                             <div class="dropdown-menu" role="menu"><%= link_to "Войти", new_user_session_path, class: "dropdown-item", role: "presentation" %><%= link_to "Регистрация", new_user_registration_path, class: "dropdown-item", role: "presentation" %></div>
                         </li>
-
   <% end %>
-
                     </ul>
                 </div>
             </div>

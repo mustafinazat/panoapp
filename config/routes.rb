@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
 	
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   resources :articles
-  get 'tags/show'
-
-  resources :virtualtours
+  resources :virtualtours do
+    member do
+    get 'embed'
+    end
+  end
   resources :posts
+  resources :pages, :only => [:show]
   resources :panoramas, :only => [:show,:destroy]
   resources :faqs, :only => [:index, :create,:destroy]
    match '/about', to: 'pages#about', via: [:get]
