@@ -105,7 +105,7 @@ ActiveAdmin.setup do |config|
   config.register_javascript 'js/tinymce/themes/modern/theme.min.js'
   config.register_javascript 'js/tinymce/plugins/image/plugin.min.js'
   config.register_javascript 'js/tinymce/plugins/link/plugin.min.js'
-  config.register_javascript 'js/tinymce/plugins/code/plugin.min.js '
+  config.register_javascript 'js/tinymce/plugins/code/plugin.min.js'
   config.register_javascript 'js/tinymce/plugins/media/plugin.min.js'
   config.register_javascript 'tinymce_initialize.js'
   config.register_stylesheet 'js/tinymce/skins/lightgray/skin.min.css'
