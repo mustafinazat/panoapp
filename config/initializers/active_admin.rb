@@ -102,6 +102,7 @@ ActiveAdmin.setup do |config|
   # Default:
   config.logout_link_path = :destroy_admin_user_session_path
   config.register_javascript 'js/tinymce/tinymce.min.js'
+  config.register_javascript 'js/tinymce/themes/modern/theme.min.js'
   config.register_javascript 'tinymce_initialize.js'
   # This setting changes the http method used when rendering the
   # link. For example :get, :delete, :put, etc..
