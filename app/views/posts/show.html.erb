@@ -46,7 +46,7 @@
 
 
 <span style="display:none"><%= imageoriginal(panorama) %></span>
- <img src=" <%= imagethumb(panorama) %>" onclick="OpenPanorama(this)" >
+ <img src="<%= imagethumb(panorama) %>" onclick="OpenPanorama(this)" >
 
         <a class="text-right iframelink" style="display: none;" data-toggle="modal" data-target="#exampleModal" data-panourl="'<%=polymorphic_url(panorama) %>'">   <i class="fa fa-external-link " aria-hidden="true" style="color: #007bff" ></i>
         </a>
@@ -145,7 +145,7 @@
           </div>
     </div>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">

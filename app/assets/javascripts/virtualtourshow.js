@@ -2,6 +2,18 @@
  * Created by 1 on 13.02.2018.
  */
 
+if ( !(~window.location.toString().indexOf("/embed")) ) {
+
+    $('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var url = button.data('panourl') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.iframecode').text('<iframe src=' + url + ' height="300" width="100%"></iframe>')
+
+    })
+}
 
 var  preloader = document.getElementById( 'preloader');
 var progressBar = document.getElementById( 'progress_bar' );
@@ -74,9 +86,20 @@ PANOLENS.Panorama.prototype.link = function ( pano, position, imageScale, imageS
 
 };
 
+
+var startbutton;
+if ( !(~window.location.toString().indexOf("/embed")) ) {
+
+    setupPanolens();
+}
+
+var  viewer;
 var virtualtourtourContainer;
-virtualtourtourContainer = document.getElementById( 'virtualtour-container' );
-var  viewer = new PANOLENS.Viewer({ container: virtualtourtourContainer, autoHideInfospot: true,  autoHideControlBar: true });
+function setupPanolens() {
+    virtualtourtourContainer = document.getElementById( 'virtualtour-container' );
+    viewer = new PANOLENS.Viewer({ container: virtualtourtourContainer, autoHideInfospot: true,  autoHideControlBar: true });
+};
+
 
 
 

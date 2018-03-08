@@ -1,6 +1,6 @@
 <% set_meta_tags title: "Виртуальные туры ", description: "Виртуальные туры на i360.cam",
                  reverse: true,
-          og: { title: "Виртуальные туры | i360.cam", image: request.protocol + request.host + ((!@virtualtours.empty?)?@virtualtours.first.panoramas.first.image.url(:thumb):"" ) }
+          og: { title: "Виртуальные туры | i360.cam", image: request.protocol + request.host + ((!@virtualtours.empty?)?@virtualtours.last.panoramas.first.image.url(:thumb):"" ) }
 %>
 
               <% breadcrumb :virtualtours, @virtualtours %>

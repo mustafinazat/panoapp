@@ -4,7 +4,7 @@
 %>
 
 <% breadcrumb :about %>
-<%= raw @aboutpage.body %>
+<%= raw @aboutpage ? @aboutpage.body: ""  %>
 
 
 

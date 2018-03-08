@@ -209,40 +209,30 @@ init();
 
 function load_photos_to_swiper(array, type)
 {
-
     var output = document.getElementsByClassName('swiper-wrapper');
     var counter = output[0].querySelectorAll(".swiper-slide").length-2;
     console.log(counter);
     var files = array;
     if (!files.length) {
-
     } else {
-
-
         for (var i = 0; i < files.length; i++) {
-
             var div = document.createElement("div");
             div.classList.add("d-flex", "justify-content-around", "swiper-slide");
             div.style.height = "30vh";
             var img = document.createElement("img");
-            if (type =="erb"){   img.src = files[i]}
-            if (type =="vk"){   img.src = files[i].src_xxxbig;}
+            if (type =="erb") { img.src = files[i]}
+            if (type =="vk") { img.src = files[i].src_xxxbig;}
             if (type =="files"){ img.src = window.URL.createObjectURL(files[i]);}
             img.classList.add("img-fluid");
             div.appendChild(img);
             var info = document.createElement("h4");
             if (type =="erb"){   info.innerHTML = "Панорама "+ (i+1);}
             if (type =="files"){  info.innerHTML = "Панорама "+ (i+1+counter);}
-
             div.appendChild(info);
-
             output[0].appendChild(div);
         }
 
-
         output[1].innerHTML =  output[0].innerHTML;
-
-
         var mySwiper = new Swiper ('.swiper-container', {
             loop: true,
             pagination: '.swiper-pagination',
@@ -251,12 +241,7 @@ function load_photos_to_swiper(array, type)
             prevButton: '.swiper-button-prev'
         });
     }
-
 }
-
-
-
-
 
 function handleFiles(e) {
     load_photos_to_swiper(e.target.files, "files")

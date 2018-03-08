@@ -12,19 +12,83 @@
 
       <div class="form-group">
         <%= form.label :title,  "Название" ,  class: "mr-sm-2"%>
-         <%= form.text_field :title, id: :post_title , placeholder: "Название", class: "form-control"%>
+         <%= form.text_field :title, id: :post_title , placeholder: "Название (обязательно)", class: "form-control"%>
     </div>
 
     <div class="form-group">
             <%= form.label :description,  "Описание" ,  class: "mr-sm-2"%>
-         <%= form.text_area :description, id: :post_description,rows: 5 , placeholder: "Описание", class: "form-control" %>
+         <%= form.text_area :description, id: :post_description,rows: 5 , placeholder: "Описание (обязательно, минимум 22 символа)", class: "form-control" %>
 
     </div>
 
-    <div class="form-group">
-      <label class="mr-sm-2" for="images">Добавить панорамы</label><br>
-      <%= file_field_tag "images[]", id: 'images',  type: :file, multiple: true %>
-    </div>
+
+
+
+        <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#files" role="tab">Добавить файлы</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#vk" role="tab">Альбом VK</a>
+    </li>
+
+  </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+    <div class="tab-pane active" id="files" role="tabpanel">    <div class="form-group">
+    <br>
+     <%= file_field_tag "images[]", type: :file, multiple: true %>
+    </div></div>
+    <div class="tab-pane" id="vk" role="tabpanel">
+      <br>
+  <div class="form-group">
+
+          <label for="album_url" class="mr-sm-2">Ссылка на альбом ВКонтакте</label>
+          <input class="form-control" id="album_url" name="album_url" type="text" />
+             </div>
+
+      <div class="form-group row ">
+    <%= form.label :vk_owner_id,  "VK ID владельца альбома" ,class: "col-sm-4 col-form-label"%>
+        <div class="col-sm-8">
+           <%= form.text_field :vk_owner_id, id: :vk_owner_id , placeholder: "vk_owner_id" , class:"form-control"%>
+      </div>
+      </div>
+      <div class="form-group row">
+          <%= form.label :vk_album_id,  "VK ID альбома" ,  class: "col-sm-4 col-form-label"%>
+        <div class="col-sm-8 input-group">
+
+        <%= form.text_field :vk_album_id, id: :vk_album_id , placeholder: "vk_album_id", class:"form-control"%>
+
+      </span>
+      </div>
+
+
+
+
+
+  </div>
+  </div>
+  </div>
+
+    <script>
+          $(document).ready(function(){
+                  $('[data-toggle="tooltip"]').tooltip();
+              });
+      </script>
+
+      <script>
+            var input = document.getElementById('album_url');
+           input.oninput = function() {
+                    var owner_id_position= input.value.indexOf("album") + 5;
+                   var position_of__ = input.value.indexOf("_", owner_id_position);
+                   var album_id_position= position_of__ + 1;
+               var position_of_ = input.value.indexOf("?", album_id_position);
+                   document.getElementById('vk_owner_id').value = input.value.substring(owner_id_position, position_of__);
+                   if (position_of_ == -1) {  document.getElementById('vk_album_id').value = input.value.substring(album_id_position);}
+                   else {  document.getElementById('vk_album_id').value = input.value.substring(album_id_position,position_of_);           }
+               };
+        </script>
 
 
 
@@ -36,7 +100,7 @@
 
 
     <div class="form-group">
-      <%= form.label :closed,  "Не опубликовывать" ,  class: "mr-sm-2"%>
+      <%= form.label :closed,  "Приватный (доступен только по ссылке)" ,  class: "mr-sm-2"%>
       <%= form.check_box :closed, id: :closed%>
     </div>
 

@@ -20,13 +20,13 @@
   <div class="col-md-8 col-lg-9">
 
     <%= render 'form', virtualtour: @virtualtour %>
-    <%= link_to 'Back', virtualtours_path %>
+    <%= link_to 'К турам', virtualtours_path %>
 
-    <h3 class="text-center">Создание точек перехода</h3>
+
 
   </div>
   <div class="col">
-    <p>Какие то инструкции</p>
+    <%= raw Page.where(slug: 'vtinstructions_new').take ? Page.where(slug: 'vtinstructions_new').take.body: ""  %>
   </div>
 
 
@@ -37,6 +37,7 @@
 
 <div class="row">
   <div class="col-lg-7 col-xl-7">
+    <h3 class="text-center">Создание точек перехода</h3>
     <div class="row">
 
       <div class="col-lg-7 col-xl-7 simple-slider">

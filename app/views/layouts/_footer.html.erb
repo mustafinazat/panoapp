@@ -1,7 +1,7 @@
 <hr>
     <div class="footer-basic">
         <footer>
-            <div class="social"><a href="#"><i class="fa fa-instagram"></i></a><a href="#"><i class="fa fa-vk"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-facebook"></i></a></div>
+            <div class="social"><a href=" <%= raw Page.where(slug: 'instagram_url').take ? Page.where(slug: 'instagram_url').take.title: ""  %>"><i class="fa fa-instagram"></i></a><a href=" <%= raw Page.where(slug: 'vk_url').take ? Page.where(slug: 'vk_url').take.title: ""  %>"><i class="fa fa-vk"></i></a></div>
             <ul class="list-inline">
                 <li class="list-inline-item"><a href="/">Главная</a></li>
                 <li class="list-inline-item"><a href="/about">О сервисе</a></li>

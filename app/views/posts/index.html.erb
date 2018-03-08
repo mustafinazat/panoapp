@@ -1,6 +1,6 @@
 <% set_meta_tags title: "Посты ", description: "Посты, публикации на i360.cam",
                   reverse: true,
-                 og: { title: "Посты | i360.cam", image: request.protocol + request.host + ((!@posts.empty?)?@posts.first.panoramas.first.image.url(:thumb):"" ) }
+                 og: { title: "Посты | i360.cam", image: request.protocol + request.host + ((!@posts.empty?)?@posts.last.panoramas.first.image.url(:thumb):"" ) }
 %>
 <% breadcrumb :posts, @posts %>
 

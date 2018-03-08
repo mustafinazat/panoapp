@@ -47,9 +47,11 @@
 
   <div class=" col-md-3 col-lg-3">
     <br>
-      <div class="d-flex justify-content-between">
+       <div class="d-flex justify-content-between">
         <small> <i class="fa fa-user-o" aria-hidden="true"> </i> <%= link_to @virtualtour.user.nickname, @virtualtour.user %></small>
         <small> <i class="fa fa-calendar" aria-hidden="true"> </i> <%= @virtualtour.created_at.strftime( "%d.%m.%Y")%></small>
+         <small> <a class="text-right iframelink" data-toggle="modal" data-target="#exampleModal" data-panourl="'<%=embed_virtualtour_url(@virtualtour) %>'">   <i class="fa fa-external-link " aria-hidden="true" style="color: #007bff" ></i>
+         </a></small>
       </div>
       <hr>
       <%= raw @virtualtour.tags.map(&:name).map{ |t| link_to "#"+ t, tag_path(t), class: 'badge badge-primary' }.join(' ') %>
@@ -62,7 +64,62 @@
       </p>
 
     </div>
+
+
+
 </div>
+<div class="row">
+<div class="col-md-8 col-lg-9 text-center">
+<br>
+
+  <button class="btn btn-outline-primary text-center" type="button" data-toggle="collapse" data-target="#comments" aria-expanded="false" aria-controls="collapseExample">
+    Развернуть комментарии
+  </button>
+
+
+  <div class="collapse" id="comments">
+    <br>
+    <div class="card card-body">
+      <!-- Put this script tag to the <head> of your page -->
+      <script type="text/javascript" src="//vk.com/js/api/openapi.js?152"></script>
+
+      <script type="text/javascript">
+          VK.init({apiId: 5823627, onlyWidgets: true});
+      </script>
+
+      <!-- Put this div tag to the place, where the Comments block will be -->
+      <div id="vk_comments" ></div>
+      <script type="text/javascript">
+          VK.Widgets.Comments("vk_comments", {limit: 10, attach: "*"});
+      </script>
+    </div>
+  </div>
+
+
+
+</div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Вставка кода</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <code class="iframecode">
+
+        </code>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <%= javascript_include_tag "three.min" %>
 <%= javascript_include_tag "panolens.min"%>

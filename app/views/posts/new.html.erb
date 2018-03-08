@@ -16,7 +16,8 @@
                 </div>
 
                 <div class="col-md-4 col-lg-3">
-                    <p>Какие то инструкции</p>
+
+                  <%= raw Page.where(slug: 'postinstructions_new').take ? Page.where(slug: 'postinstructions_new').take.body: ""  %>
                 </div>
 
 

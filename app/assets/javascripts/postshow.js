@@ -4,7 +4,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
     var modal = $(this)
-    modal.find('.iframecode').text('<iframe src='+url+' height="300" width="100%"></iframe>')
+    modal.find('.iframecode').text('<iframe allowfullscreen src='+url+' height="300" width="100%"></iframe>')
 
 })
 

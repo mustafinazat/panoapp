@@ -1,7 +1,7 @@
 
-<div id="virtualtour-container">
+<div id="virtualtour-container" style=" background-image: url(<%= @panoramas.first.image.url(:thumb)%>); background-size: cover">
   <div id="progress_bar"></div>
-  <div class="banter-loader" id="preloader">
+  <div class="banter-loader" id="preloader" style="display: none">
     <div class="banter-loader__box"></div>
     <div class="banter-loader__box"></div>
     <div class="banter-loader__box"></div>
@@ -12,6 +12,12 @@
     <div class="banter-loader__box"></div>
     <div class="banter-loader__box"></div>
   </div>
+  <div class="centerblock" >
+    <h2 id="startbutton"> <%= @virtualtour.title %>  | i360.cam  <br><span style="font-size: 15vh">&#9658;</span> </h2>
+
+     </div>
+  </div>
+
 </div>
 
 <%= javascript_include_tag "three.min" %>
@@ -20,6 +26,15 @@
 
 <%= javascript_tag do %>
 
+    var startbutton;
+    if ( ~window.location.toString().indexOf("/embed"))
+
+    {
+
+    startbutton = document.getElementById('startbutton');
+    startbutton.onclick = function() {
+    setupPanolens();
+    startbutton.style.display ="none";
 
     <% unless @panoramas.empty? %>
         <% @panoramas.each_with_index do |pic,index| %>
@@ -41,7 +56,17 @@
 
         <% end %>
     <% end %>
+
+    }
+    }
+
+
+
+
+
+
 <% end %>
+
 
 
 
