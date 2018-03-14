@@ -1,7 +1,7 @@
 
 <% set_meta_tags description: @post.description,
                  keywords: @post.tags.map(&:name).map{|t| t}, reverse: true,
-                 og: { title: @post.title, image: request.protocol + request.host + @post.panoramas.first.image.url(:thumb) }
+                 og: { title: @post.title, image: metatag_image(@post.panoramas.first) }
 %>
 
 
@@ -21,7 +21,7 @@
  <% end %>
    </div>
 <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1 align-items-baseline">
-                     <%= link_to post_path, method: :delete , class: 'btn btn-danger' do %>
+                     <%= link_to post_path, data: { confirm: "Вы уверены, что хотите удалить?", method: "delete" } , class: 'btn btn-danger' do %>
 
  <i class="fa fa-remove"></i>
  <% end %>
@@ -39,25 +39,17 @@
 
 
   <% unless @post.panoramas.empty? %>
-  <% @post.panoramas.each do |panorama| %>
-
-  <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
-    <div class="thumbnail">
-
-
-<span style="display:none"><%= imageoriginal(panorama) %></span>
- <img src="<%= imagethumb(panorama) %>" onclick="OpenPanorama(this)" >
-
-        <a class="text-right iframelink" style="display: none;" data-toggle="modal" data-target="#exampleModal" data-panourl="'<%=polymorphic_url(panorama) %>'">   <i class="fa fa-external-link " aria-hidden="true" style="color: #007bff" ></i>
-        </a>
-
-
-   </div>
- </div>
-
-
-  <% end %>
-<% end %>
+                              <% @post.panoramas.each do |panorama| %>
+                                  <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                    <div class="thumbnail">
+                                      <span style="display:none"><%= imageoriginal(panorama) %></span>
+                                      <img src="<%= imagethumb(panorama) %>" onclick="OpenPanorama(this)" >
+                                      <a class="text-right iframelink" style="display: none;" data-toggle="modal" data-target="#exampleModal" data-panourl="'<%=polymorphic_url(panorama) %>'">   <i class="fa fa-external-link " aria-hidden="true" style="color: #007bff" ></i>
+                                      </a>
+                                    </div>
+                                  </div>
+                              <% end %>
+                          <% end %>
                  </div>
                     </div>
  </div>

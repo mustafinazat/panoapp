@@ -1,11 +1,17 @@
 class PagesController < ApplicationController
 
+	require 'flickraw'
 
 	before_action :set_page, only: [:show]
 
   def about
 		@aboutpage = Page.where(slug: 'about').take;
-  end
+	end
+
+
+	def flickr
+
+	end
 
 	def show
 

@@ -49,6 +49,8 @@ gem 'tinymce-rails'
 gem 'activeadmin'
 gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources'
 gem 'arctic_admin'
+gem 'flickraw'
+
 
 
 # Use Capistrano for deployment

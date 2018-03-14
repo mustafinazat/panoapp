@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
 
+  require 'flickraw'
+
   before_action :authenticate_user!, only: [:new, :create, :destroy]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   
@@ -38,7 +40,7 @@ class PostsController < ApplicationController
     respond_to do |format|
 
 
-      if params[:images] || !params[:post][:vk_album_id].empty?
+      if params[:images] || !params[:post][:vk_album_id].empty? ||!params[:post][:flickr_album_id].empty?
         begin
 
           if @post.save
@@ -53,7 +55,20 @@ class PostsController < ApplicationController
                 @post.panoramas.create(image_file_name: image.src_xxxbig, image_file_name_thumb: image.src_xbig )
               }
 
-            else
+        elsif !params[:post][:flickr_album_id].empty?
+
+              FlickRaw.api_key = 'ceed295642e12b3700db498758bf2f97'
+              FlickRaw.shared_secret = 'c7f7bd53a3f291fe'
+
+              @photosets = flickr.photosets.getPhotos(photoset_id: params[:post][:flickr_album_id]).photo.map do |photo|
+                flickr.photos.getSizes(photo_id: photo.id).map do |size|
+                  size.source
+                end
+              end
+              @photosets.each do |image|
+              @post.panoramas.create(image_file_name: image.last, image_file_name_thumb: image[4] )
+end
+              else
 
               if params[:images]
                 # The magic is here ;)
@@ -73,7 +88,7 @@ class PostsController < ApplicationController
 
 
         rescue
-          flash[:alert] = "Проблема с VK (альбом не доступен)"
+          flash[:alert] = "Проблема с VK или FLICKR (альбом не доступен)"
           format.html { render :new }
           format.json { render json: @post.errors, status: :unprocessable_entity }
         end
@@ -81,7 +96,7 @@ class PostsController < ApplicationController
 
 
       else
-        flash[:alert] = "Нужны панорамы"
+        flash[:alert] = "Нужны панорамы!!!"
         format.html { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }
 
@@ -113,6 +128,24 @@ class PostsController < ApplicationController
                 @post.panoramas.create(image_file_name: image.src_xxxbig, image_file_name_thumb: image.src_xbig )
               }
 
+
+            elsif !params[:post][:flickr_album_id].empty?
+
+              FlickRaw.api_key = ''
+              FlickRaw.shared_secret = ''
+
+              @photosets = flickr.photosets.getPhotos(photoset_id: params[:post][:flickr_album_id]).photo.map do |photo|
+                flickr.photos.getSizes(photo_id: photo.id).map do |size|
+                  size.source
+                end
+              end
+
+              @post.panoramas.destroy_all
+              @photosets.each do |image|
+                @post.panoramas.create(image_file_name: image.last, image_file_name_thumb: image[4] )
+              end
+
+
             else
 
               if params[:images]
@@ -133,7 +166,7 @@ class PostsController < ApplicationController
 
 
         rescue
-          flash[:alert] = "Проблема с VK (альбом не доступен)"
+          flash[:alert] = "Проблема с VK или FLICKR (альбом не доступен)"
           format.html { render :edit }
           format.json { render json: @post.errors, status: :unprocessable_entity }
         end
@@ -149,7 +182,7 @@ class PostsController < ApplicationController
     authorize @post, :update?
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: 'Пост удален.' }
+      format.html { redirect_to posts_url, notice: 'Пост удален' }
       format.json { head :no_content }
     end
   end
@@ -162,7 +195,7 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :description, :vk_owner_id, :vk_album_id,:slug, :all_tags, :closed)
+      params.require(:post).permit(:title, :description, :vk_owner_id, :vk_album_id, :flickr_album_id,:slug, :all_tags, :closed)
     end
 end
 

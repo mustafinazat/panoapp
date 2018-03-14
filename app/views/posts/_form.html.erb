@@ -31,6 +31,9 @@
     <li class="nav-item">
       <a class="nav-link" data-toggle="tab" href="#vk" role="tab">Альбом VK</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#flickr" role="tab">Альбом FLICKR</a>
+     </li>
 
   </ul>
 
@@ -69,6 +72,19 @@
 
   </div>
   </div>
+
+      <div class="tab-pane" id="flickr" role="tabpanel">
+        <br>
+
+        <div class="form-group row ">
+          <%= form.label :flickr_album_id,  "ID альбома FLICKR" ,class: "col-sm-4 col-form-label"%>
+          <div class="col-sm-8">
+            <%= form.text_field :flickr_album_id, id: :flickr_album_id , placeholder: "flickr_album_id" , class:"form-control"%>
+          </div>
+        </div>
+      </div>
+
+
   </div>
 
     <script>

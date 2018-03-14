@@ -119,6 +119,7 @@ GEM
       faraday_middleware
       multi_json
     ffi (1.9.18)
+    flickraw (0.9.9)
     font-awesome-rails (4.7.0.3)
       railties (>= 3.2, < 5.2)
     font-awesome-sass (4.7.0)
@@ -331,6 +332,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   devise-i18n
+  flickraw
   font-awesome-sass
   friendly_id
   gretel

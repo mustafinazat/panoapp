@@ -24,7 +24,7 @@ end
 
   def imageoriginal(panorama)
     if panorama
-            if panorama.parentlink.vk_album_id.empty?
+            if panorama.parentlink.vk_album_id.empty? && panorama.parentlink.flickr_album_id.empty?
                panorama.image.url
                      else
   panorama.image_file_name
@@ -34,12 +34,23 @@ end
 
   def imagethumb(panorama)
     if panorama
- if panorama.parentlink.vk_album_id.empty?
+ if panorama.parentlink.vk_album_id.empty? && panorama.parentlink.flickr_album_id.empty?
  panorama.image.url(:thumb)
      else
       panorama.image_file_name_thumb
  end
    end
+  end
+
+
+  def metatag_image(panorama)
+    if panorama
+      if panorama.parentlink.vk_album_id.empty? && panorama.parentlink.flickr_album_id.empty?
+        request.protocol + request.host + panorama.image.url(:thumb)
+      else
+        panorama.image_file_name_thumb
+      end
+    end
   end
 
 

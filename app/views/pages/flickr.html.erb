@@ -1,0 +1,20 @@
+<% FlickRaw.api_key = 'ceed295642e12b3700db498758bf2f97'
+FlickRaw.shared_secret = 'c7f7bd53a3f291fe'
+
+@photosets = flickr.photosets.getPhotos(photoset_id: '72157691346313892').photo.map do |photo|
+  flickr.photos.getSizes(photo_id: photo.id).map do |size|
+    size.source
+end
+end
+
+
+%>
+
+
+<% @photosets.each do |image| %>
+
+    <%= image_tag image[3] %>
+
+
+
+<% end %>
