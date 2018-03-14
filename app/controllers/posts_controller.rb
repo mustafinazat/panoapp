@@ -57,8 +57,8 @@ class PostsController < ApplicationController
 
         elsif !params[:post][:flickr_album_id].empty?
 
-              FlickRaw.api_key = 'ceed295642e12b3700db498758bf2f97'
-              FlickRaw.shared_secret = 'c7f7bd53a3f291fe'
+              FlickRaw.api_key = ''
+              FlickRaw.shared_secret = ''
 
               @photosets = flickr.photosets.getPhotos(photoset_id: params[:post][:flickr_album_id]).photo.map do |photo|
                 flickr.photos.getSizes(photo_id: photo.id).map do |size|
@@ -66,7 +66,7 @@ class PostsController < ApplicationController
                 end
               end
               @photosets.each do |image|
-              @post.panoramas.create(image_file_name: image.last, image_file_name_thumb: image[4] )
+              @post.panoramas.create(image_file_name: image.last, image_file_name_thumb: image[6] )
 end
               else
 
@@ -142,7 +142,7 @@ end
 
               @post.panoramas.destroy_all
               @photosets.each do |image|
-                @post.panoramas.create(image_file_name: image.last, image_file_name_thumb: image[4] )
+                @post.panoramas.create(image_file_name: image.last, image_file_name_thumb: image[6] )
               end
 
 
