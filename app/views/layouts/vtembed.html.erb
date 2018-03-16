@@ -4,7 +4,13 @@
   <title>i360.cam - 360 панорамы, виртуальные туры'</title>
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= stylesheet_link_tag    'vtembedstyles', media: 'all' %>
-   </head>
+    <style type="text/css">
+      body {
+        overflow: hidden;
+      }
+    </style>
+     </head>
+
   <body>
 
         <%= yield %>

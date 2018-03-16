@@ -10,15 +10,18 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
+
 //= require jquery3
+//= require rails-ujs
 //= require popper
 //= require bootstrap
 //= require tinymce
 
 
 
-$(function() {
+
+
+$(function () {
 
 
 
@@ -43,6 +46,7 @@ $(function () {
 
 
 
+
 $(function () {
    // Search form
   $('#articles_search #search_button').click(function () {
@@ -53,6 +57,9 @@ $(function () {
 
 
   if ($('.pagination').length && $('#posts').length) {
+
+
+
    $(window).scroll(function() {
       const url = $('.pagination .next a').attr('href');
       if (url && ($(window).scrollTop() > ($(document).height() - $(window).height() - 50))) {

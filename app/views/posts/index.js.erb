@@ -1,8 +1,6 @@
 <% if (params.include?(:search) and params.include?(:page) )%>
 
 
-
-
 $('#posts').append("<%= j render(@posts) %>");
 <% if @posts.next_page %>
     $('#paginatediv').html("<%= j  will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>");

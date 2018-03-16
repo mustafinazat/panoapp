@@ -4,6 +4,6 @@ class Panorama < ApplicationRecord
   has_attached_file :image,
   styles: { original:  {},  thumb: "720x405#"},
   convert_options: { original:  "-quality 80" , thumb: "-quality 80"}
-    do_not_validate_attachment_file_type :image
+  do_not_validate_attachment_file_type :image
     
 end
