@@ -23,7 +23,7 @@
     </div>
 <% end %>
                 </div>
-                  <% if current_user %>
+                  <% if current_user && current_user.admin? %>
                 <div class="col-3 col-md-4 col-lg-3 col-xl-3 d-flex justify-content-end align-content-around align-self-center navigation-clean-search">
                               <%= link_to new_article_path, class: 'btn btn-info' do %>
 
@@ -39,6 +39,7 @@
 
                    
 <div id="paginatediv" class="text-center">
+           <button id="load_more" class="btn btn-outline-primary text-center" type="button">Загрузить еще </button>
            <%= will_paginate @articles, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
 </div>
 

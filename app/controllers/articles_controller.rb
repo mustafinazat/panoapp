@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.paginate(page: params[:page], per_page: 6).order("created_at desc").search(params[:search]) 
+    @articles = Article.paginate(page: params[:page], per_page: 2).order("created_at desc").search(params[:search])
   end
 
   # GET /articles/1
@@ -16,6 +16,7 @@ class ArticlesController < ApplicationController
   # GET /articles/new
   def new
     @article = Article.new
+    authorize @article, :create?
   end
 
   # GET /articles/1/edit
@@ -26,8 +27,9 @@ class ArticlesController < ApplicationController
   # POST /articles
   # POST /articles.json
   def create
-    @article = current_user.articles.new(article_params)
 
+    @article = current_user.articles.new(article_params)
+    authorize @article, :create?
     respond_to do |format|
       if @article.save
         format.html { redirect_to @article, notice: 'Статья создана' }
@@ -57,6 +59,7 @@ class ArticlesController < ApplicationController
   # DELETE /articles/1
   # DELETE /articles/1.json
   def destroy
+    authorize @article, :create?
     @article.destroy
     respond_to do |format|
       format.html { redirect_to articles_url, notice: 'Статья удалена' }

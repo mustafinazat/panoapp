@@ -9,8 +9,8 @@ class ArticlePolicy < ApplicationPolicy
     return true if  user.present? && user == article.user || user.present? && user.admin?
   end
 
-  def edit?
-    return true if  user.present? && user == article.user || user.present? && user.admin?
+  def create?
+    return true if  user.present? && user.admin?
   end
 
 

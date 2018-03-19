@@ -23,6 +23,14 @@
 
 $(function () {
 
+    if ($('.pagination').length==0) {
+        $('#load_more').hide();
+
+    }
+
+
+
+
 
 
 $(function () {
