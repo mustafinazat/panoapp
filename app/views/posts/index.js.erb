@@ -3,7 +3,7 @@
 
 $('#posts').append("<%= j render(@posts) %>");
 <% if @posts.next_page %>
-    $('#paginatediv').html("<%= j  will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>");
+    $('#paginatediv').html('<button id="load_more" class="btn btn-outline-primary text-center" type="button">Загрузить еще </button> <%= j  will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>');
 <% else %>
     $('#paginatediv').html("");
 <% end %>
@@ -19,13 +19,13 @@ $('#posts').html("<%= escape_javascript(render (@posts)) %>");
 $('#posts').html('<p class="no_results">Ничего не найдено</p>');
 <%end%>
 
-$('#paginatediv').html("<%= j  will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>");
+$('#paginatediv').html('<button id="load_more" class="btn btn-outline-primary text-center" type="button">Загрузить еще </button> <%= j  will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>');
 <% end %>
 
 <% if params.include?(:page) %>
 $('#posts').append("<%= j render(@posts) %>");
 <% if @posts.next_page %>
-    $('#paginatediv').html("<%= j  will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>");
+    $('#paginatediv').html('<button id="load_more" class="btn btn-outline-primary text-center" type="button">Загрузить еще </button> <%= j  will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>');
 <% else %>
     $('#paginatediv').html("");
 <% end %>

@@ -3,7 +3,7 @@
 
  $('#virtualtours').append("<%= j render(@posts) %>");
  <% if virtualtours.next_page %>
- $('#paginatediv').html("<%= j  will_paginate @virtualtours, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>");
+ $('#paginatediv').html('<button id="load_more" class="btn btn-outline-primary text-center" type="button">Загрузить еще </button><%= j  will_paginate @virtualtours, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>');
  <% else %>
  $('#paginatediv').html("");
  <% end %>
@@ -17,13 +17,13 @@
  $('#virtualtours').html('<p class="no_results">Ничего не найдено</p>');
  <%end%>
 
- $('#paginatediv').html("<%= j  will_paginate @virtualtours, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>");
+ $('#paginatediv').html('<button id="load_more" class="btn btn-outline-primary text-center" type="button">Загрузить еще </button><%= j  will_paginate @virtualtours, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>');
  <% end %>
 
  <% if params.include?(:page) %>
  $('#virtualtours').append("<%= j render(@virtualtours) %>");
  <% if virtualtours.next_page %>
- $('#paginatediv').html("<%= j  will_paginate @virtualtours, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>");
+ $('#paginatediv').html('<button id="load_more" class="btn btn-outline-primary text-center" type="button">Загрузить еще </button><%= j  will_paginate @virtualtours, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>');
  <% else %>
  $('#paginatediv').html("");
  <% end %>

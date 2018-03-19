@@ -42,7 +42,8 @@
    <%= render @posts %>
                         </div>
                     </div>
-<div id="paginatediv">
+<div id="paginatediv" class="text-center">
+  <button id="load_more" class="btn btn-outline-primary text-center" type="button">Загрузить еще </button>
            <%= will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
 </div>
 

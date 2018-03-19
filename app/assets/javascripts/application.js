@@ -57,7 +57,8 @@ $(function () {
 
 function onscroll (){
     const url = $('.pagination .next a').attr('href');
-    if (url && ($(window).scrollTop() > ($(document).height() - $(window).height() - 50))) {
+    if (url) {
+        $('#load_more').hide();
         $('nav.pagination').text('Загрузка ...');
         return $.getScript(url);
     }
@@ -65,33 +66,19 @@ function onscroll (){
 
 
   if ($('.pagination').length && $('#posts').length) {
-      $("body").on('touchmove', onscroll); // for mobile
+      $('body').on('click', '#load_more', function(){   onscroll();});
 
-
-   $(window).scroll(function() {
-       onscroll();
-   });
-   return $(window).scroll();
  }
 
 
   if ($('.pagination').length && $('#articles').length) {
-      $("body").on('touchmove', onscroll); // for mobile
-   $(window).scroll(function() {
-       onscroll();
-   });
-   return $(window).scroll();
+      $('body').on('click', '#load_more', function(){   onscroll();});
  }
 
 
 
     if ($('.pagination').length && $('#virtualtours').length) {
-
-        $("body").on('touchmove', onscroll); // for mobile
-        $(window).scroll(function() {
-            onscroll();
-        });
-        return $(window).scroll();
+        $('body').on('click', '#load_more', function(){   onscroll();});
     }
 
 
