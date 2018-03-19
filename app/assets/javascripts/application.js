@@ -65,7 +65,7 @@ function onscroll (){
 
 
   if ($('.pagination').length && $('#posts').length) {
-      $(document.body).on('touchmove', onscroll); // for mobile
+      $("body").on('touchmove', onscroll); // for mobile
 
 
    $(window).scroll(function() {
@@ -76,7 +76,7 @@ function onscroll (){
 
 
   if ($('.pagination').length && $('#articles').length) {
-      $(document.body).on('touchmove', onscroll); // for mobile
+      $("body").on('touchmove', onscroll); // for mobile
    $(window).scroll(function() {
        onscroll();
    });
@@ -87,7 +87,7 @@ function onscroll (){
 
     if ($('.pagination').length && $('#virtualtours').length) {
 
-        $(document.body).on('touchmove', onscroll); // for mobile
+        $("body").on('touchmove', onscroll); // for mobile
         $(window).scroll(function() {
             onscroll();
         });
