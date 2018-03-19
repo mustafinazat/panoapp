@@ -8,11 +8,6 @@ class PagesController < ApplicationController
 		@aboutpage = Page.where(slug: 'about').take;
 	end
 
-
-	def flickr
-
-	end
-
 	def show
 
 	end

@@ -8,7 +8,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-     @posts = Post.paginate(page: params[:page], per_page: 2).order("created_at desc").opened.search(params[:search])
+     @posts = Post.paginate(page: params[:page], per_page: 2).order("created_at desc").search(params[:search]).getopened(current_user)
   end
   # GET /posts/1
   # GET /posts/1.json
@@ -27,7 +27,7 @@ class PostsController < ApplicationController
 
   def userposts
     @user = User.friendly.find(params[:user_id]);
-    @posts = @user.posts.paginate(page: params[:page], per_page: 9).order("created_at desc").opened
+    @posts = @user.posts.paginate(page: params[:page], per_page: 9).order("created_at desc").getopened(current_user)
   end
 
 

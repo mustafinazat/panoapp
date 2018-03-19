@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   resources :panoramas, :only => [:show,:destroy]
   resources :faqs, :only => [:index, :create,:destroy]
    match '/about', to: 'pages#about', via: [:get]
-  match '/flickr', to: 'pages#flickr', via: [:get]
  devise_for :users  #,   controllers: { omniauth_callbacks: "authentication" }
  resources :users, :only => [:show]
   resources :users do

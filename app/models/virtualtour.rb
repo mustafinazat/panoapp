@@ -15,6 +15,13 @@ class Virtualtour < ApplicationRecord
   scope :closed, -> { where(closed: true) }
   scope :opened, -> { where(closed: false) }
 
+  def self.getopened(user)
+    if user
+      Virtualtour.all.opened.or(Virtualtour.where(user_id: user.id, closed: true))
+    else
+      Virtualtour.all.opened
+    end
+  end
 
 
   def default_values

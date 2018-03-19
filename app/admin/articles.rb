@@ -21,6 +21,9 @@ end
     column "Описание" do |article|
       article.description.slice(0,40)
     end
+    column "Автор" do |article|
+      article.user.nickname
+    end
     column :created_at
 
     actions do |article|

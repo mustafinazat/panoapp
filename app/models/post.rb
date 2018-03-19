@@ -17,6 +17,13 @@ class Post < ApplicationRecord
   scope :closed, -> { where(closed: true) }
   scope :opened, -> { where(closed: false) }
 
+def self.getopened(user)
+  if user
+     Post.all.opened.or(Post.where(user_id: user.id, closed: true))
+  else
+    Post.all.opened
+  end
+end
 
   def default_values
     self.closed ||= false if self.closed.nil?

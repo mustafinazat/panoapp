@@ -10,6 +10,10 @@ ActiveAdmin.register Post do
       column "Описание" do |post|
         post.description.slice(0,40)
       end
+      column "Автор" do |post|
+        post.user.nickname
+      end
+      column :closed
       column :created_at
 
       actions do |post|

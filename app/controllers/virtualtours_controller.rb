@@ -3,12 +3,12 @@ class VirtualtoursController < ApplicationController
   before_action :set_virtualtour, only: [:show, :edit, :update, :destroy, :embed]
 
   def index
-  @virtualtours = Virtualtour.paginate(page: params[:page], per_page: 6).order("created_at desc").opened.search(params[:search])
+  @virtualtours = Virtualtour.paginate(page: params[:page], per_page: 6).order("created_at desc").search(params[:search]).getopened(current_user)
   end
 
   def uservts
     @user = User.friendly.find(params[:user_id]);
-    @virtualtours = @user.virtualtours.paginate(page: params[:page], per_page: 9).order("created_at desc").opened
+    @virtualtours = @user.virtualtours.paginate(page: params[:page], per_page: 9).order("created_at desc").getopened(current_user)
   end
   # GET /virtualtours/1
   # GET /virtualtours/1.json

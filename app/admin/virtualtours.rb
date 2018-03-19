@@ -19,6 +19,10 @@ ActiveAdmin.register Virtualtour do
       column "Описание" do |virtualtour|
         virtualtour.description.slice(0,40)
       end
+      column "Автор" do |virtualtour|
+        virtualtour.user.nickname
+      end
+      column :closed
       column :created_at
       actions do |virtualtour|
         item "Открыть(сайт)", virtualtour_path(virtualtour), class: "view_link member_link"
