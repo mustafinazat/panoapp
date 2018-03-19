@@ -55,29 +55,30 @@ $(function () {
   });
 });
 
+function onscroll (){
+    const url = $('.pagination .next a').attr('href');
+    if (url && ($(window).scrollTop() > ($(document).height() - $(window).height() - 50))) {
+        $('nav.pagination').text('Загрузка ...');
+        return $.getScript(url);
+    }
+}
+
 
   if ($('.pagination').length && $('#posts').length) {
-
+      $(document.body).on('touchmove', onscroll); // for mobile
 
 
    $(window).scroll(function() {
-      const url = $('.pagination .next a').attr('href');
-      if (url && ($(window).scrollTop() > ($(document).height() - $(window).height() - 50))) {
-        $('nav.pagination').text('Загрузка постов...');
-        return $.getScript(url);
-      }
+       onscroll();
    });
    return $(window).scroll();
  }
 
 
   if ($('.pagination').length && $('#articles').length) {
+      $(document.body).on('touchmove', onscroll); // for mobile
    $(window).scroll(function() {
-      const url = $('.pagination .next a').attr('href');
-      if (url && ($(window).scrollTop() > ($(document).height() - $(window).height() - 50))) {
-        $('nav.pagination').text('Загрузка статей...');
-        return $.getScript(url);
-      }
+       onscroll();
    });
    return $(window).scroll();
  }
@@ -85,12 +86,10 @@ $(function () {
 
 
     if ($('.pagination').length && $('#virtualtours').length) {
+
+        $(document.body).on('touchmove', onscroll); // for mobile
         $(window).scroll(function() {
-            const url = $('.pagination .next a').attr('href');
-            if (url && ($(window).scrollTop() > ($(document).height() - $(window).height() - 50))) {
-                $('nav.pagination').text('Загрузка туров...');
-                return $.getScript(url);
-            }
+            onscroll();
         });
         return $(window).scroll();
     }
