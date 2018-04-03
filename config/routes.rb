@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     get 'embed'
     end
   end
+
+
   resources :posts
   resources :pages, :only => [:show]
   resources :panoramas, :only => [:show,:destroy]
@@ -22,7 +24,7 @@ Rails.application.routes.draw do
     resources :virtualtours,  :only => [:index],  to: 'virtualtours#uservts'
   end
   resources :tags, :only => [:show,:index, :destroy]
- root 'posts#index'
+ root 'pages#main'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

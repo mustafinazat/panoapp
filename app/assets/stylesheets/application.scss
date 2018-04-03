@@ -193,3 +193,30 @@ display: none;
 {
   margin-left: 10%;
 }
+
+
+
+.highlight-clean {
+  color:#313437;
+  background-color:#fff;
+  /*padding:20px 0;*/
+}
+
+.highlight-clean p {
+  color:#7d8285;
+}
+
+.highlight-clean h2 {
+  font-weight:bold;
+  /*margin-bottom:25px;*/
+  line-height:1.5;
+  padding-top:0;
+  margin-top:0;
+  color:inherit;
+}
+
+.highlight-clean .intro {
+  font-size:16px;
+  max-width:1000px;
+  margin:0 auto 5px;
+}

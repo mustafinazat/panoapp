@@ -1,5 +1,5 @@
 crumb :root do
-  link "Главная", root_path
+  link "Главная", "/"
 end
 
  crumb :posts do

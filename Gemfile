@@ -51,8 +51,6 @@ gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resour
 gem 'arctic_admin'
 gem 'flickraw'
 
-
-
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

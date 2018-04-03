@@ -1,0 +1,37 @@
+<% set_meta_tags title: "Главная ", description: "i360.cam - сервис для публикации сферических панорам и создания простых виртуальных туров, нацеленный на владельцев камер 360 градусов",
+                 reverse: true
+             %>
+<% breadcrumb :root %>
+
+
+<div class="highlight-clean">
+  <div class="container" style="background-size:auto;">
+    <div class="intro">
+      <h2 class="text-center">i360.cam</h2>
+      <p class="text-center">сервис для публикации сферических панорам и создания простых виртуальных туров, нацеленный на владельцев камер 360 градусов (Samsung Gear 360, Xiaomi Mi 360° Panoramic Camera, Ricoh Theta S и др)  <span ><%= link_to 'подробнее', about_path, class: 'text-center'%></span></p>
+    </div>
+   </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-xl-12">
+    <div class="tz-gallery">
+      <h3 class="text-center">Последние посты</h3>
+      <div class="row">
+        <%= render @posts %>
+      </div>
+      <%= link_to 'Перейти к постам', posts_path, class: 'btn btn-outline-primary text-center' %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-xl-12">
+    <div class="tz-gallery">
+      <h3 class="text-center">Последние туры</h3>
+      <div class="row">
+        <%= render @virtualtours %>
+      </div>
+      <%= link_to 'Перейти к турам',virtualtours_path, class: 'btn btn-outline-primary text-center' %>
+    </div>
+  </div>
+</div>
